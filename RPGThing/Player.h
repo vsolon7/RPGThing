@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 
-struct Player
+struct Player //will hold all player's values such as current HP and attack speed in the future
 {
 
 	std::vector<int> pStats = {0, 0, 0};

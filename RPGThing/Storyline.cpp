@@ -16,7 +16,7 @@
 #define GAME_NAME "RPGThing" //the name of the game, may change
 
 static Text t;
-static std::mt19937 randEngine(time(0));
+static std::mt19937 randEngine(time(0)); //a mersenne twister - the random engine type.
 
 Storyline::Storyline()
 {
@@ -24,14 +24,14 @@ Storyline::Storyline()
 	introduction();
 }
 
-void Storyline::introduction()
+void Storyline::introduction() //TODO: more story
 {
 	printCharacterSelection();
 }
 
 void Storyline::printCharacterSelection()
 {
-	Human h;
+	Human h; //check Races.h for these
 	Elf e;
 	Dwarf d;
 	Demon de;

@@ -4,7 +4,7 @@
 #include <string>
 #include <windows.h>
 
-struct Text
+struct Text //all functions that will affect text output such as color changes
 {
 	std::string Text::getInput()
 	{
