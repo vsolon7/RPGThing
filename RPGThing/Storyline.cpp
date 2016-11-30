@@ -27,6 +27,7 @@ Storyline::Storyline()
 void Storyline::introduction() //TODO: more story
 {
 	printCharacterSelection();
+	theStoryIntro();
 }
 
 void Storyline::printCharacterSelection()
@@ -211,7 +212,7 @@ void Storyline::rollChar(int c)
 		std::cout << "You rolled a " << Str << " for STR, " << Agi << " for AGI, and a " << Int << " for INT." BLANK_LINE;
 		std::cout << "To roll again, type 'r'. To continue type anything else.";
 
-		Cinput = t.getInput();
+		Cinput = t.getStringInput();
 
 		system("cls");
 	} while (Cinput == "r" || Cinput == "R");
@@ -247,4 +248,40 @@ std::string Storyline::classNumberToString(int c)
 
 Storyline::~Storyline()
 {
+}
+
+void Storyline::theStoryIntro()
+{
+	int input;
+
+	t.printDelayed("You wake up on a beautiful strand (that's a beach shore), dazed and confused.\n", THOUGHT);
+	t.printDelayed("You look around a notice an ivory bench with weapons all over the top." BLANK_LINE, THOUGHT);
+	t.printDelayed("You shakily stand up, and see the following weapons on the bench: " BLANK_LINE, THOUGHT);
+	std::cout << "1.) A sword\n2.) A bow\n3.) A wand\n4.) A dagger\n5.) A shield" BLANK_LINE;
+	t.printDelayed("Which will you choose? (type the number)", NORMAL);
+
+	
+	do //make sure they enter a value that is actually a choice
+	{
+		input = t.getIntInput();
+	} while (input > 5 && input < 1);
+
+	switch (input) //this will equip the weapon to the player;
+	{
+	case 1:
+
+		break;
+	case 2:
+
+		break;
+	case 3:
+
+		break;
+	case 4:
+		
+		break;
+	case 5:
+		
+		break;
+	}
 }

@@ -13,6 +13,7 @@ public:
 	void rollChar(int);
 	std::string classNumberToString(int);
 	std::string raceNumberToString(int);
+	void theStoryIntro();
 
 	Player p;
 };
