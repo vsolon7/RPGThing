@@ -24,15 +24,15 @@ struct Player //will hold all player's values such as current HP and attack spee
 	std::vector<int> pBaseStats = {0, 0, 0};
 	int pClass;
 	int pRace;
-	float critChance; //crit chance agility will increase this
+	float critChance; //crit chance
 	float evasionChance; //dodge chance agility will increase this
 	float critMulti; //multiply our crit damage by what?
 	float blockChance; //block chance
 	int armor; //players armor, increases phys damage resist
-	float physResistance; //phys damage resist. can be increased by armor or other things
+	float physResistance; //phys damage resist. can be increased by items
 	float magicResistance; //magic resist, differs by race
 	int statGainPerLevel; //stats character gains per level
-	int attackSpeed; //will decide how many times per turn you attack
+	int attackSpeed; //will decide how many times per turn you attack. agility will increase this
 	int baseDamage; //your starting damage with no weapons
 	int addedDamage; //weapons add to this
 	float physIncrease; //strength will increase this

@@ -146,12 +146,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Battle.cpp" />
     <ClCompile Include="Runner.cpp" />
     <ClCompile Include="Storyline.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Battle.h" />
     <ClInclude Include="Classes.h" />
-    <ClInclude Include="Enemies.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Items.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Races.h" />

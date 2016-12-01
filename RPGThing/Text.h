@@ -6,7 +6,15 @@
 
 #define NORMAL 40
 #define INTENSE 25
-#define THOUGHT 50 //the delay values in milliseconds of letters appearing on the screen in the printDelayed function
+#define THOUGHT 30 //the delay values in milliseconds of letters appearing on the screen in the printDelayed function
+#define SLOW 75
+
+#define WHITE 1
+#define RED 2
+#define BLUE 3
+#define GREEN 4
+#define YELLOW 5
+#define MAGENTA 6
 
 #define BLANK_LINE "\n\n" //blank line
 #define SPACER "==================================================\n" //spacer
@@ -39,6 +47,33 @@ public:
 		{
 			std::cout << p[i];
 			Sleep(d);
+		}
+	}
+
+	void Text::setColor(int color)
+	{
+		HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+
+		switch (color)
+		{
+		case 1:
+			SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
+			break;
+		case 2:
+			SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+			break;
+		case 3:
+			SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+			break;
+		case 4:
+			SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+			break;
+		case 5:
+			SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+			break;
+		case 6:
+			SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+			break;
 		}
 	}
 };

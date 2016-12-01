@@ -3,8 +3,9 @@
 #include "Player.h"
 #include "Races.h"
 #include "Classes.h"
-#include "Enemies.h"
+#include "Enemy.h"
 #include "Items.h"
+#include "Battle.h"
 
 #include <vector>
 #include <iostream>
@@ -251,10 +252,13 @@ Storyline::~Storyline()
 void Storyline::theStoryIntro()
 {
 	int input;
+	std::string strInput;
+
+	t.setColor(YELLOW);
 
 	t.printDelayed("You wake up on a beautiful strand (that's a beach shore), dazed and confused.\n", THOUGHT);
 	t.printDelayed("You look around a notice an ivory bench with weapons all over the top." BLANK_LINE, THOUGHT);
-	t.printDelayed("You shakily stand up, and see the following weapons on the bench: " BLANK_LINE, THOUGHT);
+	t.printDelayed("You shakily stand up, and see the following weapons on the bench: " BLANK_LINE, THOUGHT); t.setColor(WHITE);
 	std::cout << "1.) A sword\n2.) A bow\n3.) A wand\n4.) A dagger\n5.) A shield\n6.) A claw" BLANK_LINE;
 	t.printDelayed("Which will you choose? (type the number)", NORMAL);
 
@@ -263,8 +267,6 @@ void Storyline::theStoryIntro()
 	{
 		input = t.getIntInput();
 	} while (input > 6 && input < 1);
-
-	std::cout << p.addedDamage << BLANK_LINE;
 
 	switch (input) //this will equip the weapon to the player;
 	{
@@ -288,5 +290,37 @@ void Storyline::theStoryIntro()
 		break;
 	}
 
-	std::cout << p.addedDamage;
+	t.setColor(YELLOW);
+	t.printDelayed("After picking up the weapon, you see a training dummy ahead." BLANK_LINE, THOUGHT); t.setColor(WHITE);
+	t.printDelayed("Do you want to ", NORMAL); t.setColor(GREEN); t.printDelayed("attack", SLOW); t.setColor(WHITE);
+	t.printDelayed(" the dummy, or ", NORMAL); t.setColor(RED); t.printDelayed("run", SLOW); t.setColor(WHITE);
+	t.printDelayed(" away screaming?", NORMAL);
+
+	std::cin.ignore();
+
+	do
+	{
+		strInput = t.getStringInput();
+	} while (strInput != "attack" && strInput != "run" && strInput != "Attack" && strInput != "Run");
+
+	if (strInput == "run" || strInput == "Run")
+	{
+		t.printDelayed(BLANK_LINE "If you're this scared of a dummy, you're not gonna last much longer.", INTENSE);
+		system("PAUSE");
+		exit(0);
+	} else
+	{
+		Battle dummyFight;
+		Enemy dummy;
+
+		if (dummyFight.doBattle(p, dummy.trainingDummy) == 0)
+		{
+			t.printDelayed("You win!", INTENSE);
+		} else
+		{
+			t.printDelayed("You lost to an enemy that did 0 damage. You deserve this.", INTENSE);
+			system("PAUSE");
+			exit(0);
+		}
+	}
 }

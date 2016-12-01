@@ -40,6 +40,8 @@ struct Weapon
 				prefixM[prefixes[c]] = ((2 * (c + 1) * (c + 1)) - (c + 1));
 			}
 			damage = prefixM[p];
+			if (damage < 1)
+				damage = 1;
 
 			critChanceIncrease = .10f; //additive
 			magicDamageIncrease = .05f; //additive
@@ -52,6 +54,8 @@ struct Weapon
 				prefixM[prefixes[c]] = ((((float)5 / 3) * (c + 1) * (c + 1)) - (c + 1));
 			}
 			damage = prefixM[p];
+			if (damage < 1)
+				damage = 1;
 
 			critChanceIncrease = .05f; //additive
 			magicDamageIncrease = .05f; //additive
@@ -65,6 +69,8 @@ struct Weapon
 				prefixM[prefixes[c]] = ((((float)5 / 3) * (c + 1) * (c + 1)) - (c + 1));
 			}
 			damage = prefixM[p];
+			if (damage < 1)
+				damage = 1;
 
 			float critChanceIncrease = 0.5f; //additive
 			float magicDamageIncrease = .15f; //additive
@@ -77,6 +83,8 @@ struct Weapon
 				prefixM[prefixes[c]] = ((((float)5 / 3) * (c + 1) * (c + 1)) - (c + 1));
 			}
 			damage = prefixM[p];
+			if (damage < 1)
+				damage = 1;
 
 			float critChanceIncrease = .15f; //additive
 		}
@@ -88,6 +96,8 @@ struct Weapon
 				prefixM[prefixes[c]] = (2 * (c + 1) * (c + 1));
 			}
 			damage = prefixM[p];
+			if (damage < 1)
+				damage = 1;
 		}
 
 		else if (type == "Shield")
