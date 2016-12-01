@@ -151,6 +151,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes.h" />
+    <ClInclude Include="Enemies.h" />
+    <ClInclude Include="Items.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Races.h" />
     <ClInclude Include="Storyline.h" />

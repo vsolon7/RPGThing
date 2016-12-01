@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "Races.h"
 #include "Classes.h"
+#include "Enemies.h"
+#include "Items.h"
 
 #include <vector>
 #include <iostream>
@@ -10,10 +12,6 @@
 #include <map>
 #include <time.h>
 #include <random>
-
-#define BLANK_LINE "\n\n" //blank line
-#define SPACER "==================================================\n" //spacer
-#define GAME_NAME "RPGThing" //the name of the game, may change
 
 static Text t;
 static std::mt19937 randEngine(time(0)); //a mersenne twister - the random engine type.
@@ -63,7 +61,7 @@ void Storyline::printCharacterSelection()
 
 	if (input <= 5 && input >= 1) //basically if they're a nig and type a number thats not a race, reprint it and do nothing.
 	{
-		p.setRace(raceNumberToString(input));
+		p.setRace(input);
 		printClassSelection();
 	}
 	else
@@ -105,7 +103,7 @@ void Storyline::printClassSelection()
 
 	if (input <= 5 && input >= 1) //basically if they're a nig and type a number thats not a class, reprint it and do nothing.
 	{
-		p.setClass(classNumberToString(input));
+		p.setClass(input + 5);
 		rollChar(input);
 	} else
 		printClassSelection();
@@ -121,7 +119,7 @@ void Storyline::rollChar(int c)
 
 	system("cls");
 	std::cin.ignore();
-	std::cout << SPACER "\nYou are a(n) " << p.getClass() << " " << p.getRace() << "!" BLANK_LINE << SPACER << "\n";
+	std::cout << SPACER "\nYou are a(n) " << classNumberToString(p.getClass()) << " " << raceNumberToString(p.getRace()) << "!" BLANK_LINE << SPACER << "\n";
 
 	int minStr, minAgi, minInt, priAtt;
 	int Str, Agi, Int;
@@ -237,11 +235,11 @@ std::string Storyline::classNumberToString(int c)
 {
 	std::map<int, std::string> classType; //map of class' number and their string name
 
-	classType[1] = "Warrior";
-	classType[2] = "Archer";
-	classType[3] = "Mage";
-	classType[4] = "Rogue";
-	classType[5] = "Tank";
+	classType[6] = "Warrior";
+	classType[7] = "Archer";
+	classType[8] = "Mage";
+	classType[9] = "Rogue";
+	classType[10] = "Tank";
 
 	return classType[c]; //returns the string name of the class realitive to their number
 }
@@ -257,31 +255,38 @@ void Storyline::theStoryIntro()
 	t.printDelayed("You wake up on a beautiful strand (that's a beach shore), dazed and confused.\n", THOUGHT);
 	t.printDelayed("You look around a notice an ivory bench with weapons all over the top." BLANK_LINE, THOUGHT);
 	t.printDelayed("You shakily stand up, and see the following weapons on the bench: " BLANK_LINE, THOUGHT);
-	std::cout << "1.) A sword\n2.) A bow\n3.) A wand\n4.) A dagger\n5.) A shield" BLANK_LINE;
+	std::cout << "1.) A sword\n2.) A bow\n3.) A wand\n4.) A dagger\n5.) A shield\n6.) A claw" BLANK_LINE;
 	t.printDelayed("Which will you choose? (type the number)", NORMAL);
 
 	
 	do //make sure they enter a value that is actually a choice
 	{
 		input = t.getIntInput();
-	} while (input > 5 && input < 1);
+	} while (input > 6 && input < 1);
+
+	std::cout << p.addedDamage << BLANK_LINE;
 
 	switch (input) //this will equip the weapon to the player;
 	{
 	case 1:
-
+		p.equipWeapon("Shitty", "Sword");
 		break;
 	case 2:
-
+		p.equipWeapon("Shitty", "Bow");
 		break;
 	case 3:
-
+		p.equipWeapon("Shitty", "Wand");
 		break;
 	case 4:
-		
+		p.equipWeapon("Shitty", "Dagger");
 		break;
 	case 5:
-		
+		p.equipWeapon("Shitty", "Shield");
+		break;
+	case 6:
+		p.equipWeapon("Shitty", "Claw");
 		break;
 	}
+
+	std::cout << p.addedDamage;
 }

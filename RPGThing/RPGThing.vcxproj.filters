@@ -38,5 +38,11 @@
     <ClInclude Include="Classes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enemies.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Items.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

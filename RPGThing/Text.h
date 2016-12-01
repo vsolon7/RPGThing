@@ -8,6 +8,10 @@
 #define INTENSE 25
 #define THOUGHT 50 //the delay values in milliseconds of letters appearing on the screen in the printDelayed function
 
+#define BLANK_LINE "\n\n" //blank line
+#define SPACER "==================================================\n" //spacer
+#define GAME_NAME "RPGThing" //the name of the game, may change
+
 class Text //all functions that will affect text output such as color changes
 {
 public:

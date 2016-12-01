@@ -13,7 +13,7 @@ struct Elf
 {
 	int raceVal = 2;
 	std::string raceName = "Elf";
-	std::string abilityOne = "QUICK THINKING: \n-Elves have a multiplicative 10% increased bonus to all agility related stats.\n";
+	std::string abilityOne = "QUICK THINKING: \n-Elves have a multiplicative 15% increase to agility.\n";
 	std::string abilityTwo = "DEATH DODGER: \n-Elves also avoid death when they would normally recieve a fatal blow once per area.";
 };
 
@@ -22,7 +22,7 @@ struct Dwarf
 	int raceVal = 3;
 	std::string raceName = "Dwarf";
 	std::string abilityOne = "BRED TO FIGHT: \n-Dwarves deal 10% more melee damage.\n";
-	std::string abilityTwo = "TOUGH AS NAILS: \n-Dwarves also have 15% increased armor.";
+	std::string abilityTwo = "TOUGH AS NAILS: \n-Dwarves also have 25% increased armor.";
 };
 
 struct Demon
@@ -38,5 +38,5 @@ struct Archangel
 	int raceVal = 5;
 	std::string raceName = "Archangel";
 	std::string abilityOne = "HOLY STRENGTH: \n-Archangels have a multiplicative 40% increased crit multiplier.\n";
-	std::string abilityTwo = "PURITY: \n-Archangels also have a base 2% lifesteal.";
+	std::string abilityTwo = "PURITY: \n-Archangels also have a base 7% lifesteal.";
 };
