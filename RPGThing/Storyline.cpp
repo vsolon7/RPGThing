@@ -163,7 +163,7 @@ void Storyline::rollChar(int c)
 
 	do
 	{
-		std::cout << "As a " << p.getClass() << " your minimum required stats are: \n" <<
+		std::cout << "As a " << classNumberToString(p.getClass()) << " your minimum required stats are: \n" <<
 		minStr << " Strength, " << minAgi << " Agility, and " << minInt << " Intelligence." << BLANK_LINE << 
 		"You stats may add up to a max of 21." << BLANK_LINE << SPACER;
 
@@ -254,16 +254,14 @@ void Storyline::theStoryIntro()
 	int input;
 	std::string strInput;
 
-	t.setColor(YELLOW);
-
 	t.printDelayed("You wake up on a beautiful strand (that's a beach shore), dazed and confused.\n", THOUGHT);
-	t.printDelayed("You look around a notice an ivory bench with weapons all over the top." BLANK_LINE, THOUGHT);
+	t.printDelayed("You look around and notice an ivory bench with weapons all over the top." BLANK_LINE, THOUGHT);
 	t.printDelayed("You shakily stand up, and see the following weapons on the bench: " BLANK_LINE, THOUGHT); t.setColor(WHITE);
 	std::cout << "1.) A sword\n2.) A bow\n3.) A wand\n4.) A dagger\n5.) A shield\n6.) A claw" BLANK_LINE;
 	t.printDelayed("Which will you choose? (type the number)", NORMAL);
 
-	
-	do //make sure they enter a value that is actually a choice
+	//make sure they enter a value that is actually a choice
+	do 
 	{
 		input = t.getIntInput();
 	} while (input > 6 && input < 1);
@@ -290,7 +288,6 @@ void Storyline::theStoryIntro()
 		break;
 	}
 
-	t.setColor(YELLOW);
 	t.printDelayed("After picking up the weapon, you see a training dummy ahead." BLANK_LINE, THOUGHT); t.setColor(WHITE);
 	t.printDelayed("Do you want to ", NORMAL); t.setColor(GREEN); t.printDelayed("attack", SLOW); t.setColor(WHITE);
 	t.printDelayed(" the dummy, or ", NORMAL); t.setColor(RED); t.printDelayed("run", SLOW); t.setColor(WHITE);
@@ -310,17 +307,60 @@ void Storyline::theStoryIntro()
 		exit(0);
 	} else
 	{
-		Battle dummyFight;
-		Enemy dummy;
+		Battle fight;
+		Enemy enemyList;
 
-		if (dummyFight.doBattle(p, dummy.trainingDummy) == 0)
+		std::string fade = "The world fades away . . . . ."; //for later, the switch gave me an error :(
+
+		switch (fight.doBattle(p, enemyList.trainingDummy))
 		{
-			t.printDelayed("You win!", INTENSE);
-		} else
-		{
+		case 0:
+			t.setColor(GREEN);
+			t.printDelayed("You win!" BLANK_LINE, INTENSE);
+			t.dotPause(3);
+
+			t.setColor(RED);
+			t.printDelayed("Suddenly, from the chest of the dummy, a demon bursts out!" BLANK_LINE, INTENSE);
+			t.setColor(RED);
+			t.printDelayed("It has the body of a spider, with tentacles for legs and its face is a grotesqe fusion of human faces." BLANK_LINE, INTENSE);
+			t.printDelayed("It whispers something with its chilling voice and your body begins to attack it, against your will!" BLANK_LINE, INTENSE);
+			t.setColor(WHITE);
+			system("PAUSE");
+
+			
+			switch (fight.doBattle(p, enemyList.dummyDemon))
+			{
+			case 0:
+				t.setColor(YELLOW);
+				t.printDelayed("The demon has defeated you..." BLANK_LINE, SLOW);
+				
+
+				for (int i = 0; i < fade.length(); i++) //prints this fast at first, then slows down as the message prints. for when you die from the dummy
+				{
+					std::cout << fade[i];
+					Sleep((0.6) * (i * i));
+				}
+
+				std::cout << BLANK_LINE;
+
+				break;
+			case 1:
+				std::cout << "It is impossible to see this message, or you got VERY lucky with dodge. Either way, game over. Play the lottery." BLANK_LINE;
+				system("PAUSE");
+				exit(0);
+				break;
+			case 2:
+				std::cout << "UHHH";
+				break;
+			}
+
+			break;
+		case 1:
+			t.setColor(RED);
 			t.printDelayed("You lost to an enemy that did 0 damage. You deserve this.", INTENSE);
 			system("PAUSE");
 			exit(0);
+			break;
 		}
 	}
 }

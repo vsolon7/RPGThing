@@ -59,6 +59,7 @@ struct Player //will hold all player's values such as current HP and attack spee
 		blockChance = .15f;
 		critMulti = 2.0f;
 		armor = 0;
+		physResistance = 0.0f;
 		magicResistance = 0.0f;
 		statGainPerLevel = 2;
 		attackSpeed = 1;
@@ -70,6 +71,7 @@ struct Player //will hold all player's values such as current HP and attack spee
 		dwarfArmorIncrease = 1.0f;
 		magicDamageIncrease = 1.0f;
 		demonMagicIncrease = 1.0f;
+		lifeRegenMult = 1.0f;
 		maxHP = 15;
 		maxMana = 0;
 		lifeSteal = 0.0f;
@@ -107,6 +109,7 @@ struct Player //will hold all player's values such as current HP and attack spee
 			physIncrease += .05f;
 			magicDamageIncrease += .05f;
 			lifeRegenMult += .05f;
+			lifeRegen = (.01 * maxHP);
 			lifeSteal += .05f;
 			maxHP += 0;
 			break;
@@ -114,22 +117,26 @@ struct Player //will hold all player's values such as current HP and attack spee
 			magicResistance = .15f;
 			elfStatMult = 1.15f;
 			maxHP += 0;
+			lifeRegen = (.01 * maxHP);
 			break;
 		case 3:
 			magicResistance = .30f;
 			dwarfMeleeIncrease += .10f;
 			dwarfArmorIncrease += .25f;
 			maxHP += 5;
+			lifeRegen = (.02 * maxHP);
 			break;
 		case 4:
 			demonMagicIncrease += .07f;
 			lifeRegenMult += 1.15f;
 			maxHP += 3;
+			lifeRegen = (.02 * maxHP);
 			break;
 		case 5:
 			lifeSteal += .07f;
 			critMultIncrease += .4f;
 			maxHP += 8;
+			lifeRegen = 0;
 			break;
 		}
 	}
@@ -145,7 +152,7 @@ struct Player //will hold all player's values such as current HP and attack spee
 
 			isItemEqupped.at(6) = true;
 
-			std::cout << "You equipped the " << pref << " " << type << " to your main hand." BLANK_LINE;
+			std::cout << "You equip the " << pref << " " << type << " to your main hand." BLANK_LINE;
 		}
 		
 		else if (!isItemEqupped.at(7))

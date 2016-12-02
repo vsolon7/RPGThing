@@ -69,6 +69,9 @@ int Battle::doBattle(Player p, std::vector<int> e)
 		if (currPHP < p.maxHP) //regens player's life with their HP regen!
 			currPHP += lifeRegen;
 
+		if (currPHP < 0)
+			currPHP = 0;
+
 		std::cout << "You now have: "; t.setColor(GREEN); //tell us player HP left
 		std::cout << currPHP << "/" << p.maxHP << " health.\n"; t.setColor(WHITE);
 
@@ -91,13 +94,17 @@ int Battle::doBattle(Player p, std::vector<int> e)
 		system("PAUSE");
 		system("cls");
 	}
-	if (currPHP > 0)
+	if (currPHP >= 0)
 	{
 		return 0;
 	}
 	else if (currPHP < 0)
 	{
 		return 1;
+	}
+	else
+	{
+		return 2;
 	}
 }
 
@@ -150,12 +157,13 @@ int Battle::enemyAttack(Player p, std::vector<int> e)
 
 int Battle::playerAttack(Player p, std::vector<int> e)
 { 
+	system("cls");
 	int totalDamage = 0;
 	int pAvgD = (((p.baseDamage + p.addedDamage) * p.physIncrease) * p.dwarfMeleeIncrease);
 	int pAS = (p.attackSpeed + (sqrt(p.getStats().at(2)) * p.elfStatMult));
 	int pHit; //hit before reductions
 	int pAHit; //hit after enemies phys damage reduction
-	float eDodgeChance = e.at(4); //enemy evasion chance, defined in "Enemy.h"
+	float eDodgeChance = (e.at(4) / 100); //enemy evasion chance, defined in "Enemy.h"
 	float ePhysReduction = (1 - ((0.01 * e.at(1) / (1 + (0.01 * abs(e.at(1))))))); //enemy phys damage reduction based on armor defined in "Enemy.h"
 
 	int pAttPT = ((int) (sqrt(pAS / 3))); //player attacks per turn is the sqrt of their attack speed divided by 3

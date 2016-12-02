@@ -7,7 +7,7 @@
 #define NORMAL 40
 #define INTENSE 25
 #define THOUGHT 30 //the delay values in milliseconds of letters appearing on the screen in the printDelayed function
-#define SLOW 75
+#define SLOW 50
 
 #define WHITE 1
 #define RED 2
@@ -43,11 +43,15 @@ public:
 
 	void Text::printDelayed(std::string p, int d) //prints one letter at a time, sleeps for a delay in milliseconds. Makes letters appear one at a time.
 	{
+		if (d == THOUGHT) //just so I don't have to do this manually every time the character thinks.
+			setColor(YELLOW);
+
 		for (int i = 0; i < p.length(); i++)
 		{
 			std::cout << p[i];
 			Sleep(d);
 		}
+		setColor(WHITE);
 	}
 
 	void Text::setColor(int color)
@@ -75,6 +79,25 @@ public:
 			SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 			break;
 		}
+	}
+
+	void Text::dotPause(int seconds)
+	{
+		std::string dots = "";
+		int length = 0;
+		for (int i = 0; i < ((seconds * 3) * 2); i++)
+		{
+			if (i % 2 == 0)
+				dots += ' ';
+
+			else
+				dots += '.';
+
+			length++;
+		}
+
+		printDelayed(dots, (((float)seconds / length) * 1000));
+		std::cout << BLANK_LINE;
 	}
 };
 
