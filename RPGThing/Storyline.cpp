@@ -15,7 +15,7 @@
 #include <time.h>
 #include <random>
 
-Text t;
+static Text t;
 static Town mainTown; //I created the town here to always keep it one town, instead of making lots of new ones.
 			   //There is only one town that exists after all.
 

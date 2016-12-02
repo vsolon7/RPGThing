@@ -27,7 +27,7 @@ void Town::townFirstVisit(Player &p)
 	system("cls");
 	std::cout << SPACER;
 
-	t.printDelayed("You wake up."); 
+	t.printDelayed("You wake up.", THOUGHT); 
 
 	/*
 		Need to think about the lore and decide what time period and where they will wake up.
