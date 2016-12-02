@@ -149,6 +149,7 @@
     <ClCompile Include="Battle.cpp" />
     <ClCompile Include="Runner.cpp" />
     <ClCompile Include="Storyline.cpp" />
+    <ClCompile Include="Town.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Battle.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Races.h" />
     <ClInclude Include="Storyline.h" />
     <ClInclude Include="Text.h" />
+    <ClInclude Include="Town.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,6 +15,9 @@ Battle::Battle()
 {
 }
 
+
+
+//will check if player crit based on their crit chance
 bool Battle::critRoll(float cChance)
 {
 	if (cChance < 0.01)
@@ -25,8 +28,9 @@ bool Battle::critRoll(float cChance)
 	bool crit = rollCrit(randEngine) < (cChance * 100);
 
 	return crit;
-}
+} 
 
+//rolls enemy or player's damage. they can hit from 50% to 150% of their base damage
 int Battle::dmgRoll(int avgD)
 {
 	std::uniform_int_distribution<int> rollDamage((avgD * .50), (avgD * 1.5));
@@ -36,6 +40,7 @@ int Battle::dmgRoll(int avgD)
 	return dmgBeforeArmor;
 }
 
+//will check if player dodged an attack based on their evasion chance
 bool Battle::dodgeRoll(float dChance)
 {
 	if (dChance < 0.01)
@@ -49,7 +54,7 @@ bool Battle::dodgeRoll(float dChance)
 }
 
 /*
-	Will be the main FRAMEWORK of the battle. The player and enemies attacking get their own functions.
+	This is the main FRAMEWORK of the battle. The player and enemies attacking get their own functions.
 	As of right now, enemies only do phys damage. No magic.
 */
 int Battle::doBattle(Player p, std::vector<int> e)
@@ -60,6 +65,7 @@ int Battle::doBattle(Player p, std::vector<int> e)
 	int eHP = e.at(3);
 	int currPHP = p.maxHP;
 	int lifeRegen = (p.lifeRegen * p.lifeRegenMult);
+	static bool canDodgeDeath = (p.getRace() == 2); //for the elf. pls don't be too OP. lets him dodge death.
 
 	while (eHP > 0 && currPHP > 0)
 	{
@@ -69,13 +75,22 @@ int Battle::doBattle(Player p, std::vector<int> e)
 		if (currPHP < p.maxHP) //regens player's life with their HP regen!
 			currPHP += lifeRegen;
 
-		if (currPHP < 0)
-			currPHP = 0;
+		//elf's death dodge
+		if (currPHP < 0 && canDodgeDeath)
+		{
+			canDodgeDeath = false; //dodged death, make it false now.
+			currPHP = 1;
+		} else if (currPHP < 0 && !canDodgeDeath)
+		{
+			return 1; //if this wasn't here, they would always get an extra hit. With lifesteal, they will literally never die.
+		}
 
-		std::cout << "You now have: "; t.setColor(GREEN); //tell us player HP left
+		//tell us player HP left
+		std::cout << "You now have: "; t.setColor(GREEN); 
 		std::cout << currPHP << "/" << p.maxHP << " health.\n"; t.setColor(WHITE);
 
-		std::cout << "The enemy now has: "; t.setColor(GREEN); //tell us enemy HP left
+		//tell us enemy HP left
+		std::cout << "The enemy now has: "; t.setColor(GREEN); 
 		std::cout << eHP << "/" << e.at(3) << " health." BLANK_LINE; t.setColor(WHITE);
 		std::cout << SPACER;
 		system("PAUSE");
@@ -85,27 +100,21 @@ int Battle::doBattle(Player p, std::vector<int> e)
 		pHit = playerAttack(p, e); //player attacks! :0
 		eHP -= pHit;
 
-		std::cout << "You now have: "; t.setColor(GREEN); //tell us player HP left
+		//tell us player HP left
+		std::cout << "You now have: "; t.setColor(GREEN); 
 		std::cout << currPHP << "/" << p.maxHP << " health." BLANK_LINE; t.setColor(WHITE);
 
-		std::cout << "The enemy now has: "; t.setColor(GREEN); //tells us enemy HP left
+		//tells us enemy HP left
+		std::cout << "The enemy now has: "; t.setColor(GREEN);
 		std::cout << eHP << "/" << e.at(3) << " health.\n"; t.setColor(WHITE);
 		std::cout << SPACER;
 		system("PAUSE");
 		system("cls");
 	}
-	if (currPHP >= 0)
-	{
+	if (currPHP >= 0) //0 if player lived
 		return 0;
-	}
-	else if (currPHP < 0)
-	{
+	else if (currPHP < 0) //1 if player died :(
 		return 1;
-	}
-	else
-	{
-		return 2;
-	}
 }
 
 int Battle::enemyAttack(Player p, std::vector<int> e)
@@ -208,8 +217,6 @@ int Battle::playerAttack(Player p, std::vector<int> e)
 			}
 
 			std::cout << pAHit; t.setColor(WHITE);
-
-			
 		}
 
 		Sleep(50);
@@ -226,6 +233,8 @@ int Battle::playerAttack(Player p, std::vector<int> e)
 
 	return totalDamage;
 }
+
+
 
 Battle::~Battle()
 {

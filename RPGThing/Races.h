@@ -14,7 +14,7 @@ struct Elf
 	int raceVal = 2;
 	std::string raceName = "Elf";
 	std::string abilityOne = "QUICK THINKING: \n-Elves have a multiplicative 15% increase to agility related stats.\n";
-	std::string abilityTwo = "DEATH DODGER: \n-Elves also avoid death when they would normally recieve a fatal blow once per area.";
+	std::string abilityTwo = "DEATH DODGER: \n-Elves also avoid death when they would normally recieve a fatal blow once per battle.";
 };
 
 struct Dwarf

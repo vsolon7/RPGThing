@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Items.h"
 #include "Battle.h"
+#include "Town.h"
 
 #include <vector>
 #include <iostream>
@@ -14,8 +15,15 @@
 #include <time.h>
 #include <random>
 
-static Text t;
+Text t;
+static Town mainTown; //I created the town here to always keep it one town, instead of making lots of new ones.
+			   //There is only one town that exists after all.
+
+
 static std::mt19937 randEngine(time(0)); //a mersenne twister - the random engine type.
+
+enum GAMESTATES { INTRO, TOWN, CAVES, INBATTLE }; //different places you can be in, more to come!
+int gameState;
 
 Storyline::Storyline()
 {
@@ -25,6 +33,7 @@ Storyline::Storyline()
 
 void Storyline::introduction() //TODO: more story
 {
+	gameState = INTRO;
 	printCharacterSelection();
 	theStoryIntro();
 }
@@ -312,6 +321,7 @@ void Storyline::theStoryIntro()
 
 		std::string fade = "The world fades away . . . . ."; //for later, the switch gave me an error :(
 
+		//fights the training dummy
 		switch (fight.doBattle(p, enemyList.trainingDummy))
 		{
 		case 0:
@@ -327,7 +337,7 @@ void Storyline::theStoryIntro()
 			t.setColor(WHITE);
 			system("PAUSE");
 
-			
+			//fights the demon from the dummy
 			switch (fight.doBattle(p, enemyList.dummyDemon))
 			{
 			case 0:
@@ -345,12 +355,9 @@ void Storyline::theStoryIntro()
 
 				break;
 			case 1:
-				std::cout << "It is impossible to see this message, or you got VERY lucky with dodge. Either way, game over. Play the lottery." BLANK_LINE;
+				std::cout << "It is impossible to see this message, or you got impossibly lucky with dodge. Either way, game over. Play the lottery." BLANK_LINE;
 				system("PAUSE");
 				exit(0);
-				break;
-			case 2:
-				std::cout << "UHHH";
 				break;
 			}
 
@@ -362,5 +369,8 @@ void Storyline::theStoryIntro()
 			exit(0);
 			break;
 		}
+		
+		mainTown.townFirstVisit(p); //I just called first visit instead of the normal function to avoid checking the # of town visits EVERY time.
+
 	}
 }
