@@ -82,6 +82,16 @@ int Battle::doBattle(Player p, std::vector<int> e)
 			currPHP = 1;
 		} else if (currPHP < 0 && !canDodgeDeath)
 		{
+			currPHP = 0;
+			std::cout << "You now have: "; t.setColor(GREEN);
+			std::cout << currPHP << "/" << p.maxHP << " health.\n"; t.setColor(WHITE);
+
+			//tell us enemy HP left
+			std::cout << "The enemy now has: "; t.setColor(GREEN);
+			std::cout << eHP << "/" << e.at(3) << " health." BLANK_LINE; t.setColor(WHITE);
+			std::cout << SPACER;
+			system("PAUSE");
+			system("cls");
 			return 1; //if this wasn't here, they would always get an extra hit. With lifesteal, they will literally never die.
 		}
 
@@ -111,9 +121,9 @@ int Battle::doBattle(Player p, std::vector<int> e)
 		system("PAUSE");
 		system("cls");
 	}
-	if (currPHP >= 0) //0 if player lived
+	if (currPHP > 0) //0 if player lived
 		return 0;
-	else if (currPHP < 0) //1 if player died :(
+	else if (currPHP <= 0) //1 if player died :(
 		return 1;
 }
 

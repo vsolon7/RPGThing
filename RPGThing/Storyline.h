@@ -12,7 +12,7 @@ public:
 	void printClassSelection();
 	void rollChar(int);
 	std::string classNumberToString(int);
-	std::string raceNumberToString(int);
+	std::string adaptionNumberToString(int);
 	void theStoryIntro();
 
 	Player p;

@@ -1,42 +1,42 @@
 #pragma once
 #include <string>
 
-struct Human
+struct Improvisation
 {
 	int raceVal = 1;
-	std::string raceName = "Human";
-	std::string abilityOne = "JACK OF ALL TRADES: \n-Humans get double stats when they level up!\n";
-	std::string abilityTwo = "ADAPTABILITY: \n-Humans also gain a flat +5% buff to all stats that involve percents.";
+	std::string adaptionName = "Improvisation";
+	std::string abilityOne = "JACK OF ALL TRADES: \n-You get double stats when you level up!\n";
+	std::string abilityTwo = "ADAPTABILITY: \n-You gain a flat +5% buff to all stats that involve percents.";
 };
 
-struct Elf
+struct Grace
 {
 	int raceVal = 2;
-	std::string raceName = "Elf";
-	std::string abilityOne = "QUICK THINKING: \n-Elves have a multiplicative 15% increase to agility related stats.\n";
-	std::string abilityTwo = "DEATH DODGER: \n-Elves also avoid death when they would normally recieve a fatal blow once per battle.";
+	std::string raceName = "Grace";
+	std::string abilityOne = "QUICK THINKING: \n-You have a multiplicative 15% increase to agility related stats.\n";
+	std::string abilityTwo = "DEATH DODGER: \n-You avoid death when you would normally recieve a fatal blow once per battle.";
 };
 
-struct Dwarf
+struct Battlewise
 {
 	int raceVal = 3;
-	std::string raceName = "Dwarf";
-	std::string abilityOne = "BRED TO FIGHT: \n-Dwarves deal 10% more melee damage.\n";
-	std::string abilityTwo = "TOUGH AS NAILS: \n-Dwarves also have 25% increased armor.";
+	std::string raceName = "Battlewise";
+	std::string abilityOne = "BRED TO FIGHT: \n-You deal 10% more melee damage.\n";
+	std::string abilityTwo = "TOUGH AS NAILS: \n-You have 25% increased armor.";
 };
 
-struct Demon
+struct Shaper
 {
 	int raceVal = 4;
-	std::string raceName = "Demon";
-	std::string abilityOne = "DEMONIC STRENGTH: \n-Demons deal 7% more magic damage.\n";
-	std::string abilityTwo = "DAMNED BLOOD: \n-Demons also have 15% increased life regeneration rate.";
+	std::string raceName = "Shaper";
+	std::string abilityOne = "FORCE: \n-You deal 7% more magic damage.\n";
+	std::string abilityTwo = ": \n-You have 15% increased life regeneration rate.";
 };
 
-struct Archangel
+struct Outlasting
 {
 	int raceVal = 5;
-	std::string raceName = "Archangel";
-	std::string abilityOne = "HOLY STRENGTH: \n-Archangels have a multiplicative 40% increased crit multiplier.\n";
-	std::string abilityTwo = "PURITY: \n-Archangels also have a base 7% lifesteal.";
+	std::string raceName = "Outlasting";
+	std::string abilityOne = "HOLY STRENGTH: \n-You have a multiplicative 40% more crit multiplier.\n";
+	std::string abilityTwo = "PURITY: \n-You have a base 7% lifesteal.";
 };

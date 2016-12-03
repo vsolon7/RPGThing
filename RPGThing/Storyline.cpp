@@ -22,12 +22,13 @@ static Town mainTown; //I created the town here to always keep it one town, inst
 
 static std::mt19937 randEngine(time(0)); //a mersenne twister - the random engine type.
 
-enum GAMESTATES { INTRO, TOWN, CAVES, INBATTLE }; //different places you can be in, more to come!
-int gameState;
+static enum GAMESTATES { INTRO, TOWN, CAVES, INBATTLE }; //different places you can be in, more to come!
+static int gameState;
 
 Storyline::Storyline()
 {
 	Player p;
+	mainTown.townFirstVisit(p);
 	introduction();
 }
 
@@ -40,29 +41,29 @@ void Storyline::introduction() //TODO: more story
 
 void Storyline::printCharacterSelection()
 {
-	Human h; //check Races.h for these
-	Elf e;
-	Dwarf d;
-	Demon de;
-	Archangel a;
+	Improvisation h; //check Races.h for these
+	Grace e;
+	Battlewise d;
+	Shaper de;
+	Outlasting a;
 
 	std::cout << SPACER << std::endl;
-	std::cout << "Welcome to " << GAME_NAME << ". Please pick your race (type the number):" BLANK_LINE;
+	std::cout << "Welcome to " << GAME_NAME << ". Please pick your perk (type the number):" BLANK_LINE;
 	std::cout << SPACER << std::endl;
 
-	std::cout << "1.) Human.\n" << "----------\n";
+	std::cout << "1.) Improvisation.\n" << "----------\n";
 	std::cout << h.abilityOne << h.abilityTwo << BLANK_LINE;
 
-	std::cout << "2.) Elf.\n" << "----------\n";
+	std::cout << "2.) Grace.\n" << "----------\n";
 	std::cout << e.abilityOne << e.abilityTwo << BLANK_LINE;
 
-	std::cout << "3.) Dwarf.\n" << "----------\n";
+	std::cout << "3.) Battlewise.\n" << "----------\n";
 	std::cout << d.abilityOne << d.abilityTwo << BLANK_LINE;
 
-	std::cout << "4.) Demon.\n" << "----------\n";
+	std::cout << "4.) Shaper.\n" << "----------\n";
 	std::cout << de.abilityOne << de.abilityTwo << BLANK_LINE;
 
-	std::cout << "5.) Archangel\n" << "----------\n";
+	std::cout << "5.) Outlasting\n" << "----------\n";
 	std::cout << a.abilityOne << a.abilityTwo << BLANK_LINE;
 
 	int input;
@@ -86,6 +87,8 @@ void Storyline::printClassSelection()
 	Mage m;
 	Rogue r;
 	Tank t;
+
+	std::cout << "\n" SPACER << "\n";
 
 	std::cout << "1.) Warrior.\n";
 	std::cout << "------------\n";
@@ -129,7 +132,7 @@ void Storyline::rollChar(int c)
 
 	system("cls");
 	std::cin.ignore();
-	std::cout << SPACER "\nYou are a(n) " << classNumberToString(p.getClass()) << " " << raceNumberToString(p.getRace()) << "!" BLANK_LINE << SPACER << "\n";
+	std::cout << SPACER "\nYou are a(n) " << classNumberToString(p.getClass()) << " with the perk " << adaptionNumberToString(p.getRace()) << "!" BLANK_LINE << SPACER << "\n";
 
 	int minStr, minAgi, minInt, priAtt;
 	int Str, Agi, Int;
@@ -228,17 +231,17 @@ void Storyline::rollChar(int c)
 	p.setBaseStats(Str, Agi, Int);
 }
 
-std::string Storyline::raceNumberToString(int c)
+std::string Storyline::adaptionNumberToString(int c)
 {
-	std::map<int, std::string> raceType; //map of class' number and their string name
+	std::map<int, std::string> adaptionType; //map of adaption's number and their string name
 
-	raceType[1] = "Human";
-	raceType[2] = "Elf";
-	raceType[3] = "Dwarf";
-	raceType[4] = "Demon";
-	raceType[5] = "Archangel";
+	adaptionType[1] = "Improvisation";
+	adaptionType[2] = "Grace";
+	adaptionType[3] = "Battlewise";
+	adaptionType[4] = "Shaper";
+	adaptionType[5] = "Outlasting";
 
-	return raceType[c]; //returns the string name of the class realitive to their number
+	return adaptionType[c]; //returns the string name of the adaption realitive to their number
 }
 
 std::string Storyline::classNumberToString(int c)
@@ -340,7 +343,7 @@ void Storyline::theStoryIntro()
 			//fights the demon from the dummy
 			switch (fight.doBattle(p, enemyList.dummyDemon))
 			{
-			case 0:
+			case 1:
 				t.setColor(YELLOW);
 				t.printDelayed("The demon has defeated you..." BLANK_LINE, SLOW);
 				
@@ -354,7 +357,7 @@ void Storyline::theStoryIntro()
 				std::cout << BLANK_LINE;
 
 				break;
-			case 1:
+			case 0:
 				std::cout << "It is impossible to see this message, or you got impossibly lucky with dodge. Either way, game over. Play the lottery." BLANK_LINE;
 				system("PAUSE");
 				exit(0);

@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <windows.h>
+#include <conio.h>
 
 #define NORMAL 40
 #define INTENSE 25
@@ -98,6 +99,12 @@ public:
 
 		printDelayed(dots, (((float)seconds / length) * 1000));
 		std::cout << BLANK_LINE;
+	}
+
+	void Text::enterPause()
+	{
+		_getch();
+		std::cout << "\n";
 	}
 };
 
