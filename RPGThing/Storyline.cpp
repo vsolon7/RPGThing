@@ -28,7 +28,6 @@ static int gameState;
 Storyline::Storyline()
 {
 	Player p;
-	mainTown.townFirstVisit(p);
 	introduction();
 }
 
