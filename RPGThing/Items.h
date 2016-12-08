@@ -31,7 +31,7 @@ struct Weapon
 	int lifeStealIncrease = 0.0f; //additive
 	int blockChanceIncrease = 0.0f;
 
-	Weapon::Weapon(std::string p, std::string type)
+	Weapon(std::string p, std::string type)
 	{
 		if (type == "Dagger")
 		{

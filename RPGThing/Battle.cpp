@@ -6,7 +6,6 @@
 #include <time.h>
 #include <cmath>
 #include <iostream>
-#include <Windows.h>
 
 Text t;
 std::mt19937 randEngine(time(NULL));
@@ -28,7 +27,7 @@ bool Battle::critRoll(float cChance)
 	bool crit = rollCrit(randEngine) < (cChance * 100);
 
 	return crit;
-} 
+}
 
 //rolls enemy or player's damage. they can hit from 50% to 150% of their base damage
 int Battle::dmgRoll(int avgD)
@@ -96,11 +95,11 @@ int Battle::doBattle(Player p, std::vector<int> e)
 		}
 
 		//tell us player HP left
-		std::cout << "You now have: "; t.setColor(GREEN); 
+		std::cout << "You now have: "; t.setColor(GREEN);
 		std::cout << currPHP << "/" << p.maxHP << " health.\n"; t.setColor(WHITE);
 
 		//tell us enemy HP left
-		std::cout << "The enemy now has: "; t.setColor(GREEN); 
+		std::cout << "The enemy now has: "; t.setColor(GREEN);
 		std::cout << eHP << "/" << e.at(3) << " health." BLANK_LINE; t.setColor(WHITE);
 		std::cout << SPACER;
 		system("PAUSE");
@@ -111,7 +110,7 @@ int Battle::doBattle(Player p, std::vector<int> e)
 		eHP -= pHit;
 
 		//tell us player HP left
-		std::cout << "You now have: "; t.setColor(GREEN); 
+		std::cout << "You now have: "; t.setColor(GREEN);
 		std::cout << currPHP << "/" << p.maxHP << " health." BLANK_LINE; t.setColor(WHITE);
 
 		//tells us enemy HP left
@@ -151,7 +150,7 @@ int Battle::enemyAttack(Player p, std::vector<int> e)
 			t.setColor(WHITE);
 			eAHit = 0;
 		}
-		else //else, hit 
+		else //else, hit
 		{
 			eHit = dmgRoll(enemyAvgD);
 			eAHit = eHit * pPhysReduction; //takes the enemies hit and applies the players phys damage reduction
@@ -166,7 +165,7 @@ int Battle::enemyAttack(Player p, std::vector<int> e)
 
 		totalDamage += eAHit;
 	}
-		std::cout << " damage. \n"; 
+		std::cout << " damage. \n";
 		t.setColor(RED);
 		std::cout << "(TOTAL: " << totalDamage << ")\n"; t.setColor(WHITE);
 		std::cout << SPACER;
@@ -175,7 +174,7 @@ int Battle::enemyAttack(Player p, std::vector<int> e)
 }
 
 int Battle::playerAttack(Player p, std::vector<int> e)
-{ 
+{
 	system("cls");
 	int totalDamage = 0;
 	int pAvgD = (((p.baseDamage + p.addedDamage) * p.physIncrease) * p.dwarfMeleeIncrease);

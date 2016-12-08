@@ -54,7 +54,7 @@ struct Player //will hold all player's values such as current HP and attack spee
 
 	std::vector<bool> isItemEqupped = {0,0,0,0,0,0,0,0};
 
-	Player::Player() 
+	Player()
 	{
 		critChance = .05f;
 		evasionChance = .10f;
@@ -81,20 +81,20 @@ struct Player //will hold all player's values such as current HP and attack spee
 		hasMap = false;
 	}
 
-	std::vector<int> Player::getStats()
+	std::vector<int> getStats()
 	{
 		return pBaseStats;
 	}
 
-	void Player::setBaseStats(int s, int a, int i)
+	void setBaseStats(int s, int a, int i)
 	{
 		pBaseStats.at(0) = s;
 		pBaseStats.at(1) = a;
 		pBaseStats.at(2) = i;
 	}
 
-	void Player::setRace(int c)
-	{	
+	void setRace(int c)
+	{
 		//sets up the races special values!
 		pRace = c;
 
@@ -103,7 +103,7 @@ struct Player //will hold all player's values such as current HP and attack spee
 		case 1:
 			//humans get +5% to all percent stats
 			magicResistance = .25f;
-			magicResistance += .05f; 
+			magicResistance += .05f;
 			critChance += .05f;
 			evasionChance += .05f;
 			blockChance += .05f;
@@ -144,7 +144,7 @@ struct Player //will hold all player's values such as current HP and attack spee
 		}
 	}
 
-	void Player::equipWeapon(std::string pref, std::string type)
+	void equipWeapon(std::string pref, std::string type)
 	{
 		if (!isItemEqupped.at(6))
 		{
@@ -157,7 +157,7 @@ struct Player //will hold all player's values such as current HP and attack spee
 
 			std::cout << "You equip the " << pref << " " << type << " to your main hand." BLANK_LINE;
 		}
-		
+
 		else if (!isItemEqupped.at(7))
 		{
 			Weapon w(pref, type);
@@ -169,24 +169,24 @@ struct Player //will hold all player's values such as current HP and attack spee
 
 			std::cout << "You equipped the " << pref << " " << type << " to your off hand." BLANK_LINE;
 		}
-		
+
 		else
 		{
 			std::cout << "You have no room for a new weapon." BLANK_LINE;
 		}
 	}
 
-	void Player::setClass(int c)
+	void setClass(int c)
 	{
 		pClass = c;
 	}
 
-	int Player::getRace()
+	int getRace()
 	{
 		return pRace;
 	}
 
-	int Player::getClass()
+	int getClass()
 	{
 		return pClass;
 	}
