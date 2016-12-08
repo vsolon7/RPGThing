@@ -49,6 +49,8 @@ struct Player //will hold all player's values such as current HP and attack spee
 	float critMultIncrease; //for angels.
 	int currentMainWeaponAddedDamage; //for unequpping weapons
 	int currentOffWeaponAddedDamage; //for unequipping weapons
+	bool hasMap;
+	std::map<std::string, bool> friends;
 
 	std::vector<bool> isItemEqupped = {0,0,0,0,0,0,0,0};
 
@@ -76,6 +78,7 @@ struct Player //will hold all player's values such as current HP and attack spee
 		maxMana = 0;
 		lifeSteal = 0.0f;
 		critMultIncrease = 1.0f;
+		hasMap = false;
 	}
 
 	std::vector<int> Player::getStats()

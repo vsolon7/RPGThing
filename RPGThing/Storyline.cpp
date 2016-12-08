@@ -28,6 +28,7 @@ static int gameState;
 Storyline::Storyline()
 {
 	Player p;
+	mainTown.mapChoice();
 	introduction();
 }
 

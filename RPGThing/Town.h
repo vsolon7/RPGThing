@@ -9,6 +9,8 @@ public:
 	~Town();
 	void visitTown(Player&);
 	void townFirstVisit(Player&);
+	void mapChoice(Player&);
+	void printMap();
 
 private:
 	int visits;
