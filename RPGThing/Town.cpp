@@ -4,7 +4,8 @@
 #include "Items.h"
 
 #include <string>
-#include <Windows.h>
+
+#include "portability.h"
 
 Town::Town()
 {
@@ -26,7 +27,7 @@ void Town::townFirstVisit(Player &p)
 {
 	std::string input = "";
 	Text t;
-	system("cls");
+	clearConsole();
 	std::cout << SPACER;
 
 	t.printDelayed("You wake up.", THOUGHT);
@@ -61,7 +62,7 @@ void Town::townFirstVisit(Player &p)
 
 	mapChoice(p); //does the map choice process. You wil either get a map and an acquaintance, or an amulet. Or nothing if you're dumb.
 
-	
+
 }
 
 void Town::mapChoice(Player &p)
@@ -114,7 +115,7 @@ void Town::mapChoice(Player &p)
 
 		t.printDelayed("After looking at the map, you decide to head to the caves.", THOUGHT);
 	}
-	
+
 	else //it has to be "refuse" || "Refuse". so i can just use else here
 	{
 		t.printDelayed("\"", NORMAL);
@@ -132,7 +133,7 @@ void Town::mapChoice(Player &p)
 		t.printDelayed(" or ", NORMAL); t.setColor(RED);
 		t.printDelayed("ignore", SLOW); t.setColor(WHITE);
 		t.printDelayed(" her?", NORMAL);
-		
+
 		do
 		{
 			input = t.getStringInput();
@@ -156,14 +157,14 @@ void Town::mapChoice(Player &p)
 
 /*
 	I am deeply sorry i made the most unreadable code ever written
-	
+
 	it prints a map that's colored in probably the most retarded way ever.
 */
 void Town::printMap()
 {
 	Text TextT;
 
-	system("cls");
+	clearConsole();
 	TextT.setColor(BLUE);
 	std::cout << "################################################################" << std::endl;
 	std::cout << "#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#" << std::endl;

@@ -89,8 +89,8 @@ int Battle::doBattle(Player p, std::vector<int> e)
 			std::cout << "The enemy now has: "; t.setColor(GREEN);
 			std::cout << eHP << "/" << e.at(3) << " health." BLANK_LINE; t.setColor(WHITE);
 			std::cout << SPACER;
-			system("PAUSE");
-			system("cls");
+			pauseConsole();
+			clearConsole();
 			return 1; //if this wasn't here, they would always get an extra hit. With lifesteal, they will literally never die.
 		}
 
@@ -102,8 +102,8 @@ int Battle::doBattle(Player p, std::vector<int> e)
 		std::cout << "The enemy now has: "; t.setColor(GREEN);
 		std::cout << eHP << "/" << e.at(3) << " health." BLANK_LINE; t.setColor(WHITE);
 		std::cout << SPACER;
-		system("PAUSE");
-		system("cls");
+		pauseConsole();
+		clearConsole();
 
 
 		pHit = playerAttack(p, e); //player attacks! :0
@@ -117,8 +117,8 @@ int Battle::doBattle(Player p, std::vector<int> e)
 		std::cout << "The enemy now has: "; t.setColor(GREEN);
 		std::cout << eHP << "/" << e.at(3) << " health.\n"; t.setColor(WHITE);
 		std::cout << SPACER;
-		system("PAUSE");
-		system("cls");
+		pauseConsole();
+		clearConsole();
 	}
 	if (currPHP > 0) //0 if player lived
 		return 0;
@@ -175,7 +175,7 @@ int Battle::enemyAttack(Player p, std::vector<int> e)
 
 int Battle::playerAttack(Player p, std::vector<int> e)
 {
-	system("cls");
+	clearConsole();
 	int totalDamage = 0;
 	int pAvgD = (((p.baseDamage + p.addedDamage) * p.physIncrease) * p.dwarfMeleeIncrease);
 	int pAS = (p.attackSpeed + (sqrt(p.getStats().at(2)) * p.elfStatMult));

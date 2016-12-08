@@ -3,6 +3,8 @@
 #include <sstream>
 #include <string>
 
+#include "portability.h"
+
 #define NORMAL 40
 #define INTENSE 25
 #define THOUGHT 30 //the delay values in milliseconds of letters appearing on the screen in the printDelayed function
@@ -48,6 +50,7 @@ public:
 		for (int i = 0; i < p.length(); i++)
 		{
 			std::cout << p[i];
+			std::cout.flush();
 			Sleep(d);
 		}
 		setColor(WHITE);

@@ -13,5 +13,5 @@
 int main()
 {
 	Storyline newGame;
-	system("PAUSE");
+	pauseConsole();
 }

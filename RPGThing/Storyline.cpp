@@ -22,7 +22,7 @@ static Town mainTown; //I created the town here to always keep it one town, inst
 
 static std::mt19937 randEngine(time(0)); //a mersenne twister - the random engine type.
 
-static enum GAMESTATES { INTRO, TOWN, CAVES, INBATTLE }; //different places you can be in, more to come!
+enum GAMESTATES { INTRO, TOWN, CAVES, INBATTLE }; //different places you can be in, more to come!
 static int gameState;
 
 Storyline::Storyline()
@@ -75,7 +75,7 @@ void Storyline::printCharacterSelection()
 		printClassSelection();
 	}
 	else
-		printCharacterSelection(); 
+		printCharacterSelection();
 
 }
 
@@ -129,7 +129,7 @@ void Storyline::rollChar(int c)
 	Rogue r;
 	Tank ta;
 
-	system("cls");
+	clearConsole();
 	std::cin.ignore();
 	std::cout << SPACER "\nYou are a(n) " << classNumberToString(p.getClass()) << " with the perk " << adaptionNumberToString(p.getRace()) << "!" BLANK_LINE << SPACER << "\n";
 
@@ -170,12 +170,12 @@ void Storyline::rollChar(int c)
 		minInt = ta.minInt;
 		priAtt = ta.primaryStat;
 		break;
-	} 
+	}
 
 	do
 	{
 		std::cout << "As a " << classNumberToString(p.getClass()) << " your minimum required stats are: \n" <<
-		minStr << " Strength, " << minAgi << " Agility, and " << minInt << " Intelligence." << BLANK_LINE << 
+		minStr << " Strength, " << minAgi << " Agility, and " << minInt << " Intelligence." << BLANK_LINE <<
 		"You stats may add up to a max of 21." << BLANK_LINE << SPACER;
 
 		//decides what stat to roll first.
@@ -224,7 +224,7 @@ void Storyline::rollChar(int c)
 
 		Cinput = t.getStringInput();
 
-		system("cls");
+		clearConsole();
 	} while (Cinput == "r" || Cinput == "R");
 
 	p.setBaseStats(Str, Agi, Int);
@@ -272,7 +272,7 @@ void Storyline::theStoryIntro()
 	t.printDelayed("Which will you choose? (type the number)", NORMAL);
 
 	//make sure they enter a value that is actually a choice
-	do 
+	do
 	{
 		input = t.getIntInput();
 	} while (input > 6 && input < 1);
@@ -314,7 +314,7 @@ void Storyline::theStoryIntro()
 	if (strInput == "run" || strInput == "Run")
 	{
 		t.printDelayed(BLANK_LINE "If you're this scared of a dummy, you're not gonna last much longer.", INTENSE);
-		system("PAUSE");
+		pauseConsole();
 		exit(0);
 	} else
 	{
@@ -337,7 +337,7 @@ void Storyline::theStoryIntro()
 			t.printDelayed("It has the body of a spider, with tentacles for legs and its face is a grotesqe fusion of human faces." BLANK_LINE, INTENSE);
 			t.printDelayed("It whispers something with its chilling voice and your body begins to attack it, against your will!" BLANK_LINE, INTENSE);
 			t.setColor(WHITE);
-			system("PAUSE");
+			pauseConsole();
 
 			//fights the demon from the dummy
 			switch (fight.doBattle(p, enemyList.dummyDemon))
@@ -345,7 +345,7 @@ void Storyline::theStoryIntro()
 			case 1:
 				t.setColor(YELLOW);
 				t.printDelayed("The demon has defeated you..." BLANK_LINE, SLOW);
-				
+
 
 				for (int i = 0; i < fade.length(); i++) //prints this fast at first, then slows down as the message prints. for when you die from the dummy
 				{
@@ -358,7 +358,7 @@ void Storyline::theStoryIntro()
 				break;
 			case 0:
 				std::cout << "It is impossible to see this message, or you got impossibly lucky with dodge. Either way, game over. Play the lottery." BLANK_LINE;
-				system("PAUSE");
+				pauseConsole();
 				exit(0);
 				break;
 			}
@@ -367,11 +367,11 @@ void Storyline::theStoryIntro()
 		case 1:
 			t.setColor(RED);
 			t.printDelayed("You lost to an enemy that did 0 damage. You deserve this.", INTENSE);
-			system("PAUSE");
+			pauseConsole();
 			exit(0);
 			break;
 		}
-		
+
 		mainTown.townFirstVisit(p); //I just called first visit instead of the normal function to avoid checking the # of town visits EVERY time.
 
 	}
