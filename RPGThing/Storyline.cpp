@@ -17,7 +17,7 @@
 
 static Text t;
 static Town mainTown; //I created the town here to always keep it one town, instead of making lots of new ones.
-			   //There is only one town that exists after all.
+					  //There is only one town that exists after all.
 
 
 static std::mt19937 randEngine(time(0)); //a mersenne twister - the random engine type.
@@ -347,7 +347,7 @@ void Storyline::theStoryIntro()
 				t.printDelayed("The demon has defeated you..." BLANK_LINE, SLOW);
 
 
-				for (int i = 0; i < fade.length(); i++) //prints this fast at first, then slows down as the message prints. for when you die from the dummy
+				for (unsigned int i = 0; i < fade.length(); i++) //prints this fast at first, then slows down as the message prints. for when you die from the dummy
 				{
 					std::cout << fade[i];
 					Sleep((0.6) * (i * i));

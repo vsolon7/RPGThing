@@ -27,12 +27,16 @@ void Town::townFirstVisit(Player &p)
 {
 	std::string input = "";
 	Text t;
+  
 	clearConsole();
+	visits++; //you have now visited the town once
+  
 	std::cout << SPACER;
 
-	t.printDelayed("You wake up.", THOUGHT);
-	std::cout << BLANK_LINE;
-	t.printDelayed("When you open your eyes, you see multiple empty beds in what seems to be the room of a castle.", THOUGHT);
+	t.setColor(YELLOW);
+	t.printDelayed("You wake up.", SLOW); t.setColor(WHITE);
+		t.enterPause();
+	t.printDelayed("\nWhen you open your eyes, you see multiple empty beds in what seems to be the room of a castle.", THOUGHT);
 		t.enterPause(); //press enter to continue! or any key really
 
 	t.printDelayed("You look to your right and notice there is a girl near your bed, staring at you with a look of bewilderment.", THOUGHT);
@@ -51,7 +55,7 @@ void Town::townFirstVisit(Player &p)
 		t.enterPause();
 		t.dotPause(2);
 
-	t.printDelayed("You leave the room, and walk through a hall. It's decorated with angelic symbols.\n", THOUGHT);
+	t.printDelayed("You leave the room, and walk through a hall. It's decorated with godly symbols.\n", THOUGHT);
 		t.dotPause(2);
 
 	t.printDelayed("At the end of the hall there is a door. You open it and find yourself in the square of a town.", THOUGHT);
@@ -69,7 +73,7 @@ void Town::mapChoice(Player &p)
 {
 	std::string input = "";
 	Text t;
-	t.printDelayed("One of them comes up to you.\n", NORMAL);
+	t.printDelayed("\nOne of them comes up to you.\n", NORMAL);
 	t.printDelayed("\"Hello, my name is ", NORMAL);
 	t.setColor(GREEN);
 	t.printDelayed("Hector", NORMAL); t.setColor(WHITE);
@@ -113,19 +117,18 @@ void Town::mapChoice(Player &p)
 		t.printDelayed(" you think.", 31);
 		t.enterPause();
 
-		t.printDelayed("After looking at the map, you decide to head to the caves.", THOUGHT);
+		t.printDelayed("\nAfter looking at the map, you decide to head to the caves.", THOUGHT);
 	}
 
 	else //it has to be "refuse" || "Refuse". so i can just use else here
 	{
-		t.printDelayed("\"", NORMAL);
+		t.printDelayed("\n\"", NORMAL);
 		t.setColor(YELLOW);
 		t.printDelayed("Oh, well, okay", NORMAL); t.setColor(WHITE);
-		t.printDelayed("\". The man says, and walks off.", NORMAL);
+		t.printDelayed("\". Hector says, and walks off.", NORMAL);
 		t.enterPause();
 
-		std::cout << std::endl << std::endl;
-		t.printDelayed("After he leaves, you see an old woman on the street struggling to pick up boxes.", NORMAL);
+		t.printDelayed("\nAfter he leaves, you see an old woman on the street struggling to pick up boxes.", NORMAL);
 		t.enterPause();
 
 		t.printDelayed("Do you want to ", NORMAL); t.setColor(GREEN);
@@ -141,18 +144,35 @@ void Town::mapChoice(Player &p)
 
 		if (input == "help" || input == "Help")
 		{
-			//TODO:: she gives you a life regen amulet
+			t.printDelayed("\nYou help her with the boxes\n", NORMAL);
+
+			t.dotPause(3);
+			t.enterPause();
+
+			t.printDelayed("\"", NORMAL); t.setColor(GREEN);
+			t.printDelayed("Thank you so much, young man", NORMAL); t.setColor(WHITE);
+			t.printDelayed(",\" she says. \"", NORMAL); t.setColor(GREEN);
+			t.printDelayed("Here, take this necklace in return", NORMAL); t.setColor(WHITE);
+			t.printDelayed(".\"", NORMAL);
+
+			t.enterPause();
+
+			std::cout << std::endl;
+			p.equipAmulet("Decent");
+			t.enterPause();
+
+			t.printDelayed("\nYou decide to head north of the town and see what you find.\n", THOUGHT);
+			t.dotPause(3);
+			t.printDelayed("There is a cave system! You begin to explore it." BLANK_LINE, THOUGHT);
 		}
 
 		else //must be ignore
 		{
-			t.printDelayed("For some reason, you walk away.", NORMAL);
-			std::cout << std::endl << std::endl;
+			t.printDelayed("\nInstead, you decide to head north of the town and see what you find.\n", THOUGHT);
+			t.dotPause(3);
+			t.printDelayed("There is a cave system! You begin to explore it." BLANK_LINE, THOUGHT);
 		}
-
 	}
-
-	visits++;
 }
 
 /*

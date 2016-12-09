@@ -13,38 +13,35 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Storyline/Areas">
+      <UniqueIdentifier>{ff4ae3b2-9edc-4fe7-9252-0baaed52ee42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Player">
+      <UniqueIdentifier>{1ec8028c-406f-422c-aff4-e858f079eced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Storyline/Areas">
+      <UniqueIdentifier>{61e47291-8f3e-4fc9-9808-40cec20276cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Runner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Storyline.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Battle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Caves.cpp">
+      <Filter>Source Files\Storyline/Areas</Filter>
+    </ClCompile>
     <ClCompile Include="Town.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Storyline/Areas</Filter>
+    </ClCompile>
+    <ClCompile Include="Storyline.cpp">
+      <Filter>Source Files\Storyline/Areas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Storyline.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Text.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Races.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Items.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Battle.h">
@@ -54,7 +51,25 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Town.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Storyline/Areas</Filter>
+    </ClInclude>
+    <ClInclude Include="Storyline.h">
+      <Filter>Header Files\Storyline/Areas</Filter>
+    </ClInclude>
+    <ClInclude Include="Items.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Races.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Caves.h">
+      <Filter>Header Files\Storyline/Areas</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

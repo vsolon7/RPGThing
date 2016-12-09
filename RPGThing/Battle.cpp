@@ -58,7 +58,6 @@ bool Battle::dodgeRoll(float dChance)
 */
 int Battle::doBattle(Player p, std::vector<int> e)
 {
-	char temp;
 	int pHit;
 	int eHit;
 	int eHP = e.at(3);
@@ -95,12 +94,13 @@ int Battle::doBattle(Player p, std::vector<int> e)
 		}
 
 		//tell us player HP left
-		std::cout << "You now have: "; t.setColor(GREEN);
-		std::cout << currPHP << "/" << p.maxHP << " health.\n"; t.setColor(WHITE);
+		std::cout << "You now have: "; t.setColor(GREEN); 
+		std::cout << currPHP << "/" << p.maxHP << " health." BLANK_LINE; t.setColor(WHITE);
 
 		//tell us enemy HP left
-		std::cout << "The enemy now has: "; t.setColor(GREEN);
-		std::cout << eHP << "/" << e.at(3) << " health." BLANK_LINE; t.setColor(WHITE);
+		std::cout << "The enemy now has: "; t.setColor(GREEN); 
+		std::cout << eHP << "/" << e.at(3) << " health.\n"; t.setColor(WHITE);
+
 		std::cout << SPACER;
 		pauseConsole();
 		clearConsole();
@@ -122,12 +122,13 @@ int Battle::doBattle(Player p, std::vector<int> e)
 	}
 	if (currPHP > 0) //0 if player lived
 		return 0;
-	else if (currPHP <= 0) //1 if player died :(
+	else
 		return 1;
 }
 
 int Battle::enemyAttack(Player p, std::vector<int> e)
 {
+	int pBlockChance = p.blockChance;
 	int totalDamage = 0;
 	int enemyAvgD = e.at(0);
 	int enemyAS = e.at(2);
@@ -141,7 +142,7 @@ int Battle::enemyAttack(Player p, std::vector<int> e)
 		eAttPT = 1;
 
 	std::cout << SPACER "The enemy attacks you for: \n";
-	for (unsigned int c = 0; c < eAttPT; c++)
+	for (int c = 0; c < eAttPT; c++)
 	{
 		if (dodgeRoll(pDodgeChance)) //if player dodges, miss
 		{
@@ -150,7 +151,15 @@ int Battle::enemyAttack(Player p, std::vector<int> e)
 			t.setColor(WHITE);
 			eAHit = 0;
 		}
-		else //else, hit
+    
+		else if (dodgeRoll(pBlockChance)) //if player dodges, miss
+		{
+			t.setColor(YELLOW);
+			std::cout << "*block*";
+			t.setColor(WHITE);
+			eAHit = 0;
+		}
+		else //else, hit 
 		{
 			eHit = dmgRoll(enemyAvgD);
 			eAHit = eHit * pPhysReduction; //takes the enemies hit and applies the players phys damage reduction
@@ -190,7 +199,7 @@ int Battle::playerAttack(Player p, std::vector<int> e)
 
 	std::cout << SPACER "You attack the enemy for: \n";
 
-	for (unsigned int c = 0; c < pAttPT; c++)
+	for (int c = 0; c < pAttPT; c++)
 	{
 		if (dodgeRoll(eDodgeChance)) //if enemy dodges, miss
 		{
