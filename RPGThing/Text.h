@@ -2,8 +2,8 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <windows.h>
-#include <conio.h>
+
+#include "portability.h"
 
 #define NORMAL 40
 #define INTENSE 25
@@ -24,7 +24,7 @@
 class Text //all functions that will affect text output such as color changes
 {
 public:
-	std::string Text::getStringInput()
+	std::string getStringInput()
 	{
 		std::string in = "";
 		std::cout << "\n\n>> ";
@@ -33,7 +33,7 @@ public:
 		return in;
 	}
 
-	int Text::getIntInput()
+	int getIntInput()
 	{
 		int i = 0;
 		std::cout << "\n\n>> ";
@@ -42,7 +42,7 @@ public:
 		return i;
 	}
 
-	void Text::printDelayed(std::string p, int d) //prints one letter at a time, sleeps for a delay in milliseconds. Makes letters appear one at a time.
+	void printDelayed(std::string p, int d) //prints one letter at a time, sleeps for a delay in milliseconds. Makes letters appear one at a time.
 	{
 		if (d == THOUGHT) //just so I don't have to do this manually every time the character thinks.
 			setColor(YELLOW);
@@ -50,12 +50,13 @@ public:
 		for (unsigned int i = 0; i < p.length(); i++)
 		{
 			std::cout << p[i];
+			std::cout.flush();
 			Sleep(d);
 		}
 		setColor(WHITE);
 	}
 
-	void Text::setColor(int color)
+	void setColor(int color)
 	{
 		HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -82,7 +83,7 @@ public:
 		}
 	}
 
-	void Text::dotPause(int seconds)
+	void dotPause(int seconds)
 	{
 		std::string dots = "";
 		int length = 0;
@@ -101,7 +102,7 @@ public:
 		std::cout << BLANK_LINE;
 	}
 
-	void Text::enterPause()
+	void enterPause()
 	{
 		_getch();
 		std::cout << "\n";
