@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <conio.h>
 
 #if defined(_WIN32) //! Compiling for Windows
 
