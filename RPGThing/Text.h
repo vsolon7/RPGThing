@@ -47,7 +47,7 @@ public:
 		if (d == THOUGHT) //just so I don't have to do this manually every time the character thinks.
 			setColor(YELLOW);
 
-		for (int i = 0; i < p.length(); i++)
+		for (unsigned int i = 0; i < p.length(); i++)
 		{
 			std::cout << p[i];
 			Sleep(d);

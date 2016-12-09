@@ -2,8 +2,9 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "Text.h"
+#include "Player.h"
 #include "Items.h"
+#include "Text.h"
 
 #define HUMAN 1
 #define ELF 2
@@ -19,8 +20,13 @@
 
 struct Player //will hold all player's values such as current HP and attack speed in the future
 {
+	Text t;
+
 	//lots of variables!
 
+	/*
+		Actual player stats
+	*/
 	std::vector<int> pBaseStats = {0, 0, 0};
 	int pClass;
 	int pRace;
@@ -47,12 +53,24 @@ struct Player //will hold all player's values such as current HP and attack spee
 	int maxMana; //your maxInt, int will increase this
 	float lifeSteal; //lifesteal!
 	float critMultIncrease; //for angels.
-	int currentMainWeaponAddedDamage; //for unequpping weapons
-	int currentOffWeaponAddedDamage; //for unequipping weapons
+
+	std::vector<float> currentMainWeaponStats = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f }; //damage, crit chance, magic increase, lifesteal, block increase
+	std::vector<float> currentOffWeaponStats = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f }; //damage, crit chance, magic increase, lifesteal, block increase
+	float currentAmmyLRMult; //amulets life regen, for unequipping later
+
+	/*
+		friends/non-stats to keep track of
+	*/
 	bool hasMap;
 	std::map<std::string, bool> friends;
+	std::vector<bool> isItemEquipped = {0,0,0,0,0,0,0,0};
+	/*
+		helmet = 0
+		amulet = 1
 
-	std::vector<bool> isItemEqupped = {0,0,0,0,0,0,0,0};
+		mainWep = 6
+		offwep = 7
+	*/
 
 	Player::Player() 
 	{
@@ -146,34 +164,232 @@ struct Player //will hold all player's values such as current HP and attack spee
 
 	void Player::equipWeapon(std::string pref, std::string type)
 	{
-		if (!isItemEqupped.at(6))
+		Weapon w(pref, type);
+
+		if (!isItemEquipped.at(6))
 		{
-			Weapon w(pref, type);
-
 			addedDamage += w.damage;
-			currentMainWeaponAddedDamage = w.damage;
+			critChance += w.critChanceIncrease;
+			magicDamageIncrease += w.magicDamageIncrease;
+			lifeSteal += w.lifeStealIncrease;
+			blockChance += w.blockChanceIncrease;
 
-			isItemEqupped.at(6) = true;
+			currentMainWeaponStats.at(0) = w.damage;
+			currentMainWeaponStats.at(1) = w.critChanceIncrease;
+			currentMainWeaponStats.at(2) = w.magicDamageIncrease;
+			currentMainWeaponStats.at(3) = w.lifeStealIncrease;
+			currentMainWeaponStats.at(4) = w.blockChanceIncrease;
 
-			std::cout << "You equip the " << pref << " " << type << " to your main hand." BLANK_LINE;
+			isItemEquipped.at(6) = true;
+
+			std::cout << "You equip the ";
+			t.setColor(YELLOW);
+			std::cout << pref << " " << type; t.setColor(WHITE);
+			std::cout << " to your main hand.\n";
+
+			std::cout << "It adds: \n";
+			t.setColor(RED);
+			std::cout << w.damage; t.setColor(WHITE); std::cout << " damage, \n";
+			t.setColor(RED);
+			std::cout << (w.critChanceIncrease * 100); t.setColor(WHITE); std::cout << "% crit chance increase, \n";
+			t.setColor(RED);
+			std::cout << (w.magicDamageIncrease * 100); t.setColor(WHITE); std::cout << "% magic damage increase, \n";
+			t.setColor(RED);
+			std::cout << (w.lifeStealIncrease * 100); t.setColor(WHITE); std::cout << "% lifesteal increase, and \n";
+			t.setColor(RED);
+			std::cout << (w.blockChanceIncrease * 100); t.setColor(WHITE); std::cout << "% block chance increase." BLANK_LINE; t.setColor(WHITE);
 		}
 		
-		else if (!isItemEqupped.at(7))
+		else if (!isItemEquipped.at(7))
 		{
-			Weapon w(pref, type);
-
 			addedDamage += w.damage;
-			currentOffWeaponAddedDamage = w.damage;
+			critChance += w.critChanceIncrease;
+			magicDamageIncrease += w.magicDamageIncrease;
+			lifeSteal += w.lifeStealIncrease;
+			blockChance += w.blockChanceIncrease;
 
-			isItemEqupped.at(6) = true;
+			currentOffWeaponStats.at(0) = w.damage;
+			currentOffWeaponStats.at(1) = w.critChanceIncrease;
+			currentOffWeaponStats.at(2) = w.magicDamageIncrease;
+			currentOffWeaponStats.at(3) = w.lifeStealIncrease;
+			currentOffWeaponStats.at(4) = w.blockChanceIncrease;
 
-			std::cout << "You equipped the " << pref << " " << type << " to your off hand." BLANK_LINE;
+			isItemEquipped.at(6) = true;
+
+			std::cout << "You equip the ";
+			t.setColor(YELLOW);
+			std::cout << pref << " " << type; t.setColor(WHITE);
+			std::cout << " to your off hand.\n";
+
+			std::cout << "It adds: \n";
+			t.setColor(RED);
+			std::cout << w.damage; t.setColor(WHITE); std::cout << " damage, \n";
+			t.setColor(RED);
+			std::cout << (w.critChanceIncrease * 100); t.setColor(WHITE); std::cout << "% crit chance increase, \n";
+			t.setColor(RED);
+			std::cout << (w.magicDamageIncrease * 100); t.setColor(WHITE); std::cout << "% magic damage increase, \n";
+			t.setColor(RED);
+			std::cout << (w.lifeStealIncrease * 100); t.setColor(WHITE); std::cout << "% lifesteal increase, and \n";
+			t.setColor(RED);
+			std::cout << (w.blockChanceIncrease * 100); t.setColor(WHITE); std::cout << "% block chance increase." BLANK_LINE; t.setColor(WHITE);
 		}
 		
 		else
 		{
-			std::cout << "You have no room for a new weapon." BLANK_LINE;
+			std::string getInput;
+			do
+			{
+				std::cout << "Unequip main hand or off hand? (type 'main' of 'off'): \n";
+			} while (getInput != "main" && getInput != "off" && getInput != "Main" && getInput != "Off");
+			
+			if (getInput == "main" || getInput == "Main")
+			{
+				unequipWeapon(0); //unequip mainhand weapon to make room for the new weapon
+
+				addedDamage += w.damage;
+				critChance += w.critChanceIncrease;
+				magicDamageIncrease += w.magicDamageIncrease;
+				lifeSteal += w.lifeStealIncrease;
+				blockChance += w.blockChanceIncrease;
+
+				currentMainWeaponStats.at(0) = w.damage;
+				currentMainWeaponStats.at(1) = w.critChanceIncrease;
+				currentMainWeaponStats.at(2) = w.magicDamageIncrease;
+				currentMainWeaponStats.at(3) = w.lifeStealIncrease;
+				currentMainWeaponStats.at(4) = w.blockChanceIncrease;
+
+				std::cout << "You unequip your main hand to equip the new weapon." BLANK_LINE;
+
+				std::cout << "You equip the ";
+				t.setColor(YELLOW);
+				std::cout << pref << " " << type; t.setColor(WHITE);
+				std::cout << " to your main hand.\n";
+
+				std::cout << "It adds: \n";
+				t.setColor(RED);
+				std::cout << w.damage; t.setColor(WHITE); std::cout << " damage, \n";
+				t.setColor(RED);
+				std::cout << (w.critChanceIncrease * 100); t.setColor(WHITE); std::cout << "% crit chance increase, \n";
+				t.setColor(RED);
+				std::cout << (w.magicDamageIncrease * 100); t.setColor(WHITE); std::cout << "% magic damage increase, \n";
+				t.setColor(RED);
+				std::cout << (w.lifeStealIncrease * 100); t.setColor(WHITE); std::cout << "% lifesteal increase, and \n";
+				t.setColor(RED);
+				std::cout << (w.blockChanceIncrease * 100); t.setColor(WHITE); std::cout << "% block chance increase." BLANK_LINE; t.setColor(WHITE);
+			}
+
+			else
+			{
+				unequipWeapon(1);
+
+				addedDamage += w.damage;
+				critChance += w.critChanceIncrease;
+				magicDamageIncrease += w.magicDamageIncrease;
+				lifeSteal += w.lifeStealIncrease;
+				blockChance += w.blockChanceIncrease;
+
+				currentOffWeaponStats.at(0) = w.damage;
+				currentOffWeaponStats.at(1) = w.critChanceIncrease;
+				currentOffWeaponStats.at(2) = w.magicDamageIncrease;
+				currentOffWeaponStats.at(3) = w.lifeStealIncrease;
+				currentOffWeaponStats.at(4) = w.blockChanceIncrease;
+
+				std::cout << "You unequip your main hand to equip the new weapon." BLANK_LINE;
+
+				std::cout << "You equip the ";
+				t.setColor(YELLOW);
+				std::cout << pref << " " << type; t.setColor(WHITE);
+				std::cout << " to your off hand.\n";
+
+				std::cout << "It adds: \n";
+				t.setColor(RED);
+				std::cout << w.damage; t.setColor(WHITE); std::cout << " damage, \n";
+				t.setColor(RED);
+				std::cout << (w.critChanceIncrease * 100); t.setColor(WHITE); std::cout << "% crit chance increase, \n";
+				t.setColor(RED);
+				std::cout << (w.magicDamageIncrease * 100); t.setColor(WHITE); std::cout << "% magic damage increase, \n";
+				t.setColor(RED);
+				std::cout << (w.lifeStealIncrease * 100); t.setColor(WHITE); std::cout << "% lifesteal increase, and \n";
+				t.setColor(RED);
+				std::cout << (w.blockChanceIncrease * 100); t.setColor(WHITE); std::cout << "% block chance increase." BLANK_LINE; t.setColor(WHITE);
+			}
 		}
+	}
+
+	void Player::equipAmulet(std::string pref)
+	{
+		Amulet a(pref);
+
+		if (!isItemEquipped.at(1))
+		{
+			lifeRegenMult += a.lifeRegenIncreaseMult;
+			currentAmmyLRMult = a.lifeRegenIncreaseMult;
+
+			isItemEquipped.at(1) = true;
+
+			std::cout << "You place the ";
+			t.setColor(YELLOW);
+			std::cout << pref << " amulet"; t.setColor(WHITE);
+			std::cout << " around your neck. It multiplies your life regen by ";
+			t.setColor(RED);
+			std::cout << a.prefixM[pref]; t.setColor(WHITE);
+			std::cout << "." BLANK_LINE;
+		}
+
+		else
+		{
+			lifeRegenMult -= currentAmmyLRMult;
+			lifeRegenMult += a.lifeRegenIncreaseMult;
+			currentAmmyLRMult = a.lifeRegenIncreaseMult;
+
+			isItemEquipped.at(1) = true;
+
+			std::cout << "You unequip your current amulet." BLANK_LINE;
+
+			std::cout << "You equipped the ";
+			t.setColor(YELLOW);
+			std::cout << pref << " amulet"; t.setColor(WHITE);
+			std::cout << " to your neck. It multiplies your life regen by ";
+			t.setColor(RED);
+			std::cout << a.prefixM[pref]; t.setColor(WHITE);
+			std::cout << "." BLANK_LINE;
+		}
+	}
+
+	/*
+		unequippes the players current weapon, takes a parameter 0 = main hand, 1 = off hand
+	*/
+	void Player::unequipWeapon(int hand)
+	{
+
+		if (hand == 0)
+		{
+			addedDamage -= currentMainWeaponStats.at(0);
+			critChance -= currentMainWeaponStats.at(1);
+			magicDamageIncrease -= currentMainWeaponStats.at(2);
+			lifeSteal -= currentMainWeaponStats.at(3);
+			blockChance -= currentMainWeaponStats.at(4);
+
+			for (unsigned int x = 0; x < currentMainWeaponStats.size(); x++)
+				currentMainWeaponStats.at(x) = 0.0f;
+
+			isItemEquipped.at(6) = false;
+		}
+
+		else if(hand == 1)
+		{
+			addedDamage -= currentOffWeaponStats.at(0);
+			critChance -= currentOffWeaponStats.at(1);
+			magicDamageIncrease -= currentOffWeaponStats.at(2);
+			lifeSteal -= currentOffWeaponStats.at(3);
+			blockChance -= currentOffWeaponStats.at(4);
+
+			for (unsigned int x = 0; x < currentOffWeaponStats.size(); x++)
+				currentMainWeaponStats.at(x) = 0.0f;
+
+			isItemEquipped.at(7) = false;
+		}
+
 	}
 
 	void Player::setClass(int c)
