@@ -415,13 +415,10 @@ struct Player //will hold all player's values such as current HP and attack spee
 
 	void awardExp(int level)
 	{
-		if (level < 2)
-			level = 2;
-
 		std::mt19937 randEngine(time(0));
 		std::uniform_int_distribution<int> random( (level / 2), (level * 1.5) );
 
-		int tempExp = level * random(randEngine);
+		int tempExp = random(randEngine);
 
 		if (tempExp < 1)
 			tempExp = 1;
