@@ -2,6 +2,8 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <random>
+#include <ctime>
 #include "Player.h"
 #include "Items.h"
 #include "Text.h"
@@ -54,6 +56,8 @@ struct Player //will hold all player's values such as current HP and attack spee
 	float lifeSteal; //lifesteal!
 	float critMultIncrease; //for angels.
 
+	int level;
+	int exp;
 	std::vector<float> currentMainWeaponStats = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f }; //damage, crit chance, magic increase, lifesteal, block increase
 	std::vector<float> currentOffWeaponStats = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f }; //damage, crit chance, magic increase, lifesteal, block increase
 	float currentAmmyLRMult; //amulets life regen, for unequipping later
@@ -74,6 +78,8 @@ struct Player //will hold all player's values such as current HP and attack spee
 
 	Player()
 	{
+		level = 1;
+		exp = 0;
 		critChance = .05f;
 		evasionChance = .10f;
 		blockChance = .15f;
@@ -405,6 +411,47 @@ struct Player //will hold all player's values such as current HP and attack spee
 	int getClass()
 	{
 		return pClass;
+	}
+
+	void awardExp(int level)
+	{
+		if (level < 2)
+			level = 2;
+
+		std::mt19937 randEngine(time(0));
+		std::uniform_int_distribution<int> random( (level / 2), (level * 1.5) );
+
+		int tempExp = level * random(randEngine);
+
+		if (tempExp < 1)
+			tempExp = 1;
+
+		exp += tempExp;
+		std::cout << SPACER "You gain " << tempExp << " exp!\n";
+
+		if (levelUp())
+		{
+			std::cout << SPACER "You have leveled up! You are now level " << level << "!" BLANK_LINE;
+			std::cout << "You gain +" << statGainPerLevel << " to all stats!" BLANK_LINE;
+
+			for (unsigned int i = 0; i < pBaseStats.size(); i++)
+				pBaseStats[i] += statGainPerLevel;
+			
+			std::cout << "Your stats are now:\n";
+			std::cout << "Strength: " << pBaseStats.at(0) << "\nAgility: " << pBaseStats.at(1) << "\nIntelligence: " << pBaseStats.at(2) << "\n" SPACER;
+		}
+	}
+
+	bool levelUp()
+	{
+		if (exp >= (level * level))
+		{
+			level += 1;
+			exp -= (level * level);
+
+			return true;
+		} else
+			return false;
 	}
 };
 

@@ -56,7 +56,7 @@ bool Battle::dodgeRoll(float dChance)
 	This is the main FRAMEWORK of the battle. The player and enemies attacking get their own functions.
 	As of right now, enemies only do phys damage. No magic.
 */
-int Battle::doBattle(Player p, std::vector<int> e)
+int Battle::doBattle(Player &p, std::vector<int> e)
 {
 	int pHit;
 	int eHit;
@@ -121,14 +121,17 @@ int Battle::doBattle(Player p, std::vector<int> e)
 		clearConsole();
 	}
 	if (currPHP > 0) //0 if player lived
+	{
+		p.awardExp(e[5]);
 		return 0;
+	}
 	else
 		return 1;
 }
 
-int Battle::enemyAttack(Player p, std::vector<int> e)
+int Battle::enemyAttack(Player &p, std::vector<int> e)
 {
-	int pBlockChance = p.blockChance;
+	double pBlockChance = p.blockChance;
 	int totalDamage = 0;
 	int enemyAvgD = e.at(0);
 	int enemyAS = e.at(2);
@@ -152,7 +155,7 @@ int Battle::enemyAttack(Player p, std::vector<int> e)
 			eAHit = 0;
 		}
     
-		else if (dodgeRoll(pBlockChance)) //if player dodges, miss
+		else if (dodgeRoll(pBlockChance)) //if player blocks, miss
 		{
 			t.setColor(YELLOW);
 			std::cout << "*block*";
@@ -182,12 +185,12 @@ int Battle::enemyAttack(Player p, std::vector<int> e)
 	return totalDamage;
 }
 
-int Battle::playerAttack(Player p, std::vector<int> e)
+int Battle::playerAttack(Player &p, std::vector<int> e)
 {
 	clearConsole();
 	int totalDamage = 0;
 	int pAvgD = (((p.baseDamage + p.addedDamage) * p.physIncrease) * p.dwarfMeleeIncrease);
-	int pAS = (p.attackSpeed + (sqrt(p.getStats().at(2)) * p.elfStatMult));
+	int pAS = (p.attackSpeed + (sqrt(p.getStats().at(1)) * p.elfStatMult));
 	int pHit; //hit before reductions
 	int pAHit; //hit after enemies phys damage reduction
 	float eDodgeChance = (e.at(4) / 100); //enemy evasion chance, defined in "Enemy.h"

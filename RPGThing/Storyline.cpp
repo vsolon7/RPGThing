@@ -256,10 +256,6 @@ std::string Storyline::classNumberToString(int c)
 	return classType[c]; //returns the string name of the class realitive to their number
 }
 
-Storyline::~Storyline()
-{
-}
-
 void Storyline::theStoryIntro()
 {
 	int input;
@@ -335,7 +331,7 @@ void Storyline::theStoryIntro()
 			t.printDelayed("Suddenly, from the chest of the dummy, a demon bursts out!" BLANK_LINE, INTENSE);
 			t.setColor(RED);
 			t.printDelayed("It has the body of a spider, with tentacles for legs and its face is a grotesqe fusion of human faces." BLANK_LINE, INTENSE);
-			t.printDelayed("It whispers something with its chilling voice and your body begins to attack it, against your will!" BLANK_LINE, INTENSE);
+			t.printDelayed("It whispers something with its chilling voice and your body begins to attack it, against your will!\n", INTENSE);
 			t.setColor(WHITE);
 			pauseConsole();
 
@@ -375,4 +371,8 @@ void Storyline::theStoryIntro()
 		mainTown.townFirstVisit(p); //I just called first visit instead of the normal function to avoid checking the # of town visits EVERY time.
 
 	}
+}
+
+Storyline::~Storyline()
+{
 }
