@@ -1,12 +1,17 @@
 #pragma once
 #include <vector>
 #include <string>
+#include "Player.h"
+#include "Enemy.h"
 
 class Caves
 {
 public:
 	Caves();
 	~Caves();
+	void doBattle(Player &);
+	std::vector<int> createBasicEnemy(int);
+	void enterCaves(Player &);
 
 private:
 

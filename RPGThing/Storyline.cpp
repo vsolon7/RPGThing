@@ -22,9 +22,6 @@ static Town mainTown; //I created the town here to always keep it one town, inst
 
 static std::mt19937 randEngine(time(0)); //a mersenne twister - the random engine type.
 
-enum GAMESTATES { INTRO, TOWN, CAVES, INBATTLE }; //different places you can be in, more to come!
-static int gameState;
-
 Storyline::Storyline()
 {
 	Player p;
@@ -33,7 +30,7 @@ Storyline::Storyline()
 
 void Storyline::introduction() //TODO: more story
 {
-	gameState = INTRO;
+	p.instance = START;
 	printCharacterSelection();
 	theStoryIntro();
 }

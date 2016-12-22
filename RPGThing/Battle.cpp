@@ -59,9 +59,11 @@ bool Battle::dodgeRoll(float dChance)
 int Battle::doBattle(Player &p, std::vector<int> e)
 {
 	int pHit;
+	int lifeSteal = p.lifeSteal;
 	int eHit;
 	int eHP = e.at(3);
-	int currPHP = p.maxHP;
+	int currPHP = p.maxHP + p.pBaseStats[0]; //your hp is your base value + your strength
+	int maxPHP = p.maxHP + p.pBaseStats[0];
 	int lifeRegen = (p.lifeRegen * p.lifeRegenMult);
 	static bool canDodgeDeath = (p.getRace() == 2); //for the elf. pls don't be too OP. lets him dodge death.
 
@@ -82,7 +84,7 @@ int Battle::doBattle(Player &p, std::vector<int> e)
 		{
 			currPHP = 0;
 			std::cout << "You now have: "; t.setColor(GREEN);
-			std::cout << currPHP << "/" << p.maxHP << " health.\n"; t.setColor(WHITE);
+			std::cout << currPHP << "/" << p.maxHP  << " health.\n"; t.setColor(WHITE);
 
 			//tell us enemy HP left
 			std::cout << "The enemy now has: "; t.setColor(GREEN);
@@ -95,7 +97,7 @@ int Battle::doBattle(Player &p, std::vector<int> e)
 
 		//tell us player HP left
 		std::cout << "You now have: "; t.setColor(GREEN); 
-		std::cout << currPHP << "/" << p.maxHP << " health." BLANK_LINE; t.setColor(WHITE);
+		std::cout << currPHP << "/" << maxPHP << " health." BLANK_LINE; t.setColor(WHITE);
 
 		//tell us enemy HP left
 		std::cout << "The enemy now has: "; t.setColor(GREEN); 
@@ -107,11 +109,12 @@ int Battle::doBattle(Player &p, std::vector<int> e)
 
 
 		pHit = playerAttack(p, e); //player attacks! :0
+		currPHP += lifeSteal * pHit;
 		eHP -= pHit;
 
 		//tell us player HP left
 		std::cout << "You now have: "; t.setColor(GREEN);
-		std::cout << currPHP << "/" << p.maxHP << " health." BLANK_LINE; t.setColor(WHITE);
+		std::cout << currPHP << "/" << maxPHP << " health." BLANK_LINE; t.setColor(WHITE);
 
 		//tells us enemy HP left
 		std::cout << "The enemy now has: "; t.setColor(GREEN);
@@ -190,13 +193,13 @@ int Battle::playerAttack(Player &p, std::vector<int> e)
 	clearConsole();
 	int totalDamage = 0;
 	int pAvgD = (((p.baseDamage + p.addedDamage) * p.physIncrease) * p.dwarfMeleeIncrease);
-	int pAS = (p.attackSpeed + (sqrt(p.getStats().at(1)) * p.elfStatMult));
+	int pAS = (p.attackSpeed + (p.getStats().at(1) * p.elfStatMult));
 	int pHit; //hit before reductions
 	int pAHit; //hit after enemies phys damage reduction
 	float eDodgeChance = (e.at(4) / 100); //enemy evasion chance, defined in "Enemy.h"
 	float ePhysReduction = (1 - ((0.01 * e.at(1) / (1 + (0.01 * abs(e.at(1))))))); //enemy phys damage reduction based on armor defined in "Enemy.h"
 
-	int pAttPT = ((int) (sqrt(pAS / 3))); //player attacks per turn is the sqrt of their attack speed divided by 3
+	int pAttPT = ((int) (sqrt(pAS / 2))); //player attacks per turn is the sqrt of their attack speed divided by 3
 	if (pAttPT < 1) //can't attack less than once per turn
 		pAttPT = 1;
 

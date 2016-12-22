@@ -20,9 +20,13 @@
 #define ROGUE 9
 #define TANK 10
 
-struct Player //will hold all player's values such as current HP and attack speed in the future
+enum GAMESTATE { CAVES, TOWN, START };
+
+struct Player //will hold all player's values such as current HP and attack speed
 {
 	Text t;
+	GAMESTATE instance;
+	
 
 	//lots of variables!
 
@@ -424,18 +428,19 @@ struct Player //will hold all player's values such as current HP and attack spee
 			tempExp = 1;
 
 		exp += tempExp;
-		std::cout << SPACER "You gain " << tempExp << " exp!\n";
+		std::cout << SPACER "You gain " << tempExp << " exp!\n" SPACER;
 
 		if (levelUp())
 		{
-			std::cout << SPACER "You have leveled up! You are now level " << level << "!" BLANK_LINE;
+			std::cout << "\nYou have leveled up! You are now level " << Player::level << "!" BLANK_LINE;
 			std::cout << "You gain +" << statGainPerLevel << " to all stats!" BLANK_LINE;
 
 			for (unsigned int i = 0; i < pBaseStats.size(); i++)
 				pBaseStats[i] += statGainPerLevel;
 			
 			std::cout << "Your stats are now:\n";
-			std::cout << "Strength: " << pBaseStats.at(0) << "\nAgility: " << pBaseStats.at(1) << "\nIntelligence: " << pBaseStats.at(2) << "\n" SPACER;
+			std::cout << "Strength: " << pBaseStats.at(0) << "\nAgility: " << pBaseStats.at(1) << "\nIntelligence: " << pBaseStats.at(2) << "\n" SPACER << BLANK_LINE;
+
 		}
 	}
 
@@ -450,5 +455,11 @@ struct Player //will hold all player's values such as current HP and attack spee
 		} else
 			return false;
 	}
+
+	int getLevel()
+	{
+		return level;
+	}
+
 };
 

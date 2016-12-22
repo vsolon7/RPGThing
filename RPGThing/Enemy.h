@@ -62,12 +62,17 @@ struct Enemy
 		prefixStats[31] = { 5.0, 1, 1, 9.0, 1, 5 };
 		prefixStats[32] = { 6.0, 1, 1, 10.0, 1, 5 };
 		prefixStats[33] = { 3.5, 1, 1, 12.0, 1, 5 };
-		prefixStats[34] = { 8.0, 1, 1, 2.0, 1, 5 };
+		prefixStats[34] = { 7.0, 1, 1, 2.0, 1, 5 };
 		prefixStats[35] = { 4.5, 1, 1, 7.0, 1, 5 };
 		prefixStats[36] = { 6.0, 1, 1, 6.0, 1, 5 };
 		//suffix stats
 		suffixStats[1] = { 1, 1, 0, 1, 4, 0 };
 		suffixStats[2] = { 1, 1, 30, 1, 1, 0 };
 		suffixStats[3] = { 1, 1, 1, 5, 1, 0 };
+	}
+
+	std::string getPrefix(int r)
+	{
+		return prefixes.at(r);
 	}
 };

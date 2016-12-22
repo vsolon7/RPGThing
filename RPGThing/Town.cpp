@@ -2,6 +2,7 @@
 #include "Text.h"
 #include "Storyline.h"
 #include "Items.h"
+#include "Caves.h"
 
 #include <string>
 
@@ -25,6 +26,10 @@ void Town::visitTown(Player &p)
 */
 void Town::townFirstVisit(Player &p)
 {
+	Caves c;
+
+	c.enterCaves(p);
+
 	std::string input = "";
 	Text t;
   
@@ -66,7 +71,8 @@ void Town::townFirstVisit(Player &p)
 
 	mapChoice(p); //does the map choice process. You wil either get a map and an acquaintance, or an amulet. Or nothing if you're dumb.
 
-
+	//Caves c;
+	c.enterCaves(p);
 }
 
 void Town::mapChoice(Player &p)
