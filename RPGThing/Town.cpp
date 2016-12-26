@@ -26,10 +26,6 @@ void Town::visitTown(Player &p)
 */
 void Town::townFirstVisit(Player &p)
 {
-	Caves c;
-
-	c.enterCaves(p);
-
 	std::string input = "";
 	Text t;
   
@@ -71,7 +67,7 @@ void Town::townFirstVisit(Player &p)
 
 	mapChoice(p); //does the map choice process. You wil either get a map and an acquaintance, or an amulet. Or nothing if you're dumb.
 
-	//Caves c;
+	Caves c;
 	c.enterCaves(p);
 }
 

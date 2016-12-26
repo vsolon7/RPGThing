@@ -36,7 +36,7 @@ void Caves::doBattle(Player &p)
 
 	std::mt19937 randEngine(time(0));
 	std::uniform_int_distribution<int> tierRandomGen(0, 10000 - totalInstanceFights * 100); //the longer you stay in, the harder prefixes you roll.
-	std::uniform_int_distribution<int> randomPref(0, 5);
+	std::uniform_int_distribution<int> randomPref(1, 6);
 
 	std::vector<int> enemy(6);
 
@@ -68,7 +68,7 @@ void Caves::doBattle(Player &p)
 	} else
 		tier = 1;
 
-	int prefPick = (6 * tier) + randomPref(randEngine);
+	int prefPick = (6 * (tier - 1)) + randomPref(randEngine);
 
 	for (unsigned int i = 0; i < enemy.size(); i++)
 		enemy[i] *= e.prefixStats[prefPick].at(i);
